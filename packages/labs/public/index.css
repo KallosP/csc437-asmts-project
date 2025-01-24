@@ -1,0 +1,98 @@
+@import url('./tokens.css');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    background-color: var(--color-bg);
+    font-family: Poppins, sans-serif;
+    font-weight: 300;
+    color: var(--color-text);
+    grid-template-rows: 1fr;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    padding: 2em;
+    background-color: var(--color-header-bg);
+}
+
+header h1 {
+    margin-right: 1em;
+}
+
+header nav {
+    display: flex;
+    gap: 1em;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3em;
+    padding: 2em; 
+}
+
+main img {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    width: 100%;
+    height: auto;
+}
+
+.about-section{
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.about-section h2 {
+    line-height: 1.5em;
+}
+
+.about-section hr {
+    margin-bottom: 1em;
+}
+
+#about-me {
+    margin-bottom: 1em;
+}
+
+#interests {
+    margin-bottom: 1em;
+}
+
+.about-section ul {
+    margin-left: 1.5em;
+}
+
+.contact-section {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.contact-section dl {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 0.4fr 0.1fr;
+}
+
+.contact-section dt, dd {
+    justify-self: start;
+}
+
+h1, h2, h3 {
+    font-family: Lexend Exa, sans-serif;
+}
+
+a {
+    color: var(--color-accent);
+}
+
+hr {
+    border-color: var(--color-accent);
+}

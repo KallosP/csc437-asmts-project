@@ -1,0 +1,52 @@
+@import url('./tokens.css');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    font-family: Poppins, sans-serif;
+    font-weight: 300;
+    color: var(--color-text);
+}
+
+header{
+    display: flex;
+    align-items: center;
+    padding: 2em;
+    background-color: var(--color-header-bg);
+}
+
+header h1 {
+    margin-right: 1em;
+}
+
+header nav {
+    display: flex;
+    gap: 1em;
+}
+
+main {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em
+}
+
+.ctw-project {
+    line-height: 2em;
+}
+
+.campus-map-project {
+    line-height: 2em;
+}
+
+h1, h2, h3 {
+    font-family: Lexend Exa, sans-serif;
+}
+
+a {
+    color: var(--color-accent);
+}
