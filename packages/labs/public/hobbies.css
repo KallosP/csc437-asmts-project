@@ -12,7 +12,7 @@ body {
     color: var(--color-text);
 }
 
-header{
+/*header{
     display: flex;
     align-items: center;
     padding: 2em;
@@ -26,7 +26,7 @@ header h1 {
 header nav {
     display: flex;
     gap: 1em;
-}
+}*/
 
 main {
     padding: 2em;
