@@ -141,6 +141,26 @@ class CustomNavBar extends HTMLElement {
 			console.log('clicked')
 			nav.style.display = nav.style.display === 'none' ? 'flex' : 'none'
 		})
+
+        // Theme toggle (light/dark mode)
+        const checkbox = shadowRoot.querySelector('input')
+        const body = document.body
+        checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+                body.classList.add('light-mode')        
+                localStorage.setItem('light-mode', 'enabled')
+            }
+            else {
+                body.classList.remove('light-mode')
+                localStorage.setItem('light-mode', 'disabled')
+            }
+        })
+
+        // Check if light mode is enabled
+        if (localStorage.getItem('light-mode') === 'enabled') {
+            body.classList.add('light-mode')
+            checkbox.checked = true
+        }
 	}
 }
 

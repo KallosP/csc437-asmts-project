@@ -4,3 +4,10 @@
     --color-accent: #00ffa2;
     --color-header-bg: #353c4a;
 }
+
+body.light-mode {
+   --color-bg: #d7d7d7;
+    --color-text: #000;
+    --color-accent: #004C7E;
+    --color-header-bg: #e8e8e8;
+}
