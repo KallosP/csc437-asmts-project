@@ -10,18 +10,30 @@ TEMPLATE.innerHTML = `
 
         header{
             display: flex;
-            flex-direction: column;
             align-items: flex-start;
             padding: 2em;
             background-color: var(--color-header-bg);
         }
 
-        div {
+        .title-links{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .controls {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             width: 100%;
-            margin-bottom: 0.5em;
+            gap: 1.5em;
+            justify-content: flex-end;
+        }
+
+        label {
+            display: flex; 
+            gap: 0.5em;
         }
 
         button {
@@ -45,6 +57,12 @@ TEMPLATE.innerHTML = `
                 flex-direction: row; 
                 align-items: center;
             }
+
+            .title-links {
+                flex-direction: row;
+                align-items: center;
+            }
+
             button {
                 display: none;
             }
@@ -61,15 +79,21 @@ TEMPLATE.innerHTML = `
 
     </style>
     <header>
-        <div>
+        <div class="title-links">
             <slot name="nav-title">Nav Title</slot>
+            <nav>
+                <a href="./index.html">Home</a>
+                <a href="./projects.html">Projects</a>
+                <a href="./hobbies.html">Hobbies</a>
+            </nav>
+        </div>
+        <div class="controls">
+            <label>
+                <input type="checkbox" autocomplete="off" />
+                Light mode
+            </label>
             <button>Menu</button>
         </div>
-        <nav>
-            <a href="./index.html">Home</a>
-            <a href="./projects.html">Projects</a>
-            <a href="./hobbies.html">Hobbies</a>
-        </nav>
     </header> 
 `
 
@@ -82,11 +106,11 @@ class CustomNavBar extends HTMLElement {
 		const navLinks = shadowRoot.querySelectorAll('nav a')
 		// Get the current page's file name and remove the leading './'
 		let currentPage = window.location.pathname.split('/').pop()
-        // Edge case: On initial load of website, current page URL is root ('/')
-        // and currentPage is therefore ''. Set currentPage to 'index.html' if at root
-        if (currentPage === '') {
-            currentPage = 'index.html'
-        }
+		// Edge case: On initial load of website, current page URL is root ('/')
+		// and currentPage is therefore ''. Set currentPage to 'index.html' if at root
+		if (currentPage === '') {
+			currentPage = 'index.html'
+		}
 		// Find the link that matches the current page and make it bold
 		navLinks.forEach((link) => {
 			const linkHref = link.getAttribute('href')
