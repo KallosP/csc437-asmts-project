@@ -1,1 +1,9 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+    /* Font */
+    --font-header: 'League Gothic', 'sans-serif';
+
+    /* Colors */
+    --color-darkGray: #EEEEEE;
+}
