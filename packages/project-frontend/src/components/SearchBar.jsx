@@ -6,7 +6,7 @@ export default function SearchBar() {
         console.log('Search clicked')
     }
 	return (
-		<form className="w-full px-3 py-1 mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-5xl overflow-hidden rounded-3xl bg-white shadow-md ">
+		<form className="w-full px-3 py-1 mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl overflow-hidden rounded-3xl bg-white shadow-md ">
 			<label
 				htmlFor="default-search"
 				className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">

@@ -9,16 +9,16 @@ export default function GameCard(props) {
 	return (
 		<button
 			onClick={handleClick}
-			className="w-full mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-5xl xl:p-5 overflow-hidden rounded-3xl bg-white shadow-md  text-left cursor-pointer transition-all duration-300 hover:bg-blue-100 ">
-			<div className="xl:flex gap-8">
+			className="w-full mx-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl lg:p-5 overflow-hidden rounded-3xl bg-white shadow-md  text-left cursor-pointer transition-all duration-300 hover:bg-blue-100 ">
+			<div className="lg:flex gap-8">
 				<div className="md:shrink-0">
 					<img
-						className="w-full xl:rounded-3xl object-cover "
+						className="w-full lg:rounded-3xl object-cover "
 						src={props.img}
 						alt="Soccer ball on field"
 					/>
 				</div>
-				<div className="xl:p-0 p-8 overflow-hidden">
+				<div className="lg:p-0 p-8 overflow-hidden">
 					<div className="text-4xl tracking-wide">{props.name}</div>
 					{/* Tags */}
 					<div className="mt-2 overflow-hidden">

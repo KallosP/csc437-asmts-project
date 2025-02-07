@@ -11,7 +11,7 @@ export default function SearchPage() {
 			<TopBar />
 			<div className="flex flex-1 bg-darkGray">
 				<LeftSidebar />
-				<div className="flex flex-1 flex-col justify-center">
+				<div className="flex flex-1 flex-col px-5 justify-center">
 					<div className="mt-5">
 						<SearchBar />
 					</div>

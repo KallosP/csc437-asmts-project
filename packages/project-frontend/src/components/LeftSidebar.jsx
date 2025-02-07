@@ -3,7 +3,7 @@ import FilterItem from './FilterItem'
 
 export default function LeftSidebar() {
 	return (
-		<aside className="w-72 h-auto flex flex-col shadow-lg relative overflow-y-auto bg-white">
+		<aside className="w-72 h-auto hidden lg:flex flex-col shadow-lg relative overflow-y-auto bg-white">
 			<div className="p-6 space-y-10">
 				{/* Sport Filters */}
 				<div className="space-y-2">
