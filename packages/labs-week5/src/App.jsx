@@ -2,9 +2,11 @@ import TodoItem from './components/TodoItem.jsx'
 import AddTaskForm from './components/AddTaskForm.jsx'
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
+import Modal from './components/Modal.jsx'
 
 function App(props) {
 	const [tasks, setTasks] = useState(props.tasks)
+	const [isOpen, setIsOpen] = useState(false)
 
 	const taskList = tasks.map((task) => (
 		<TodoItem
@@ -20,6 +22,7 @@ function App(props) {
 	function addTask(name) {
 		const newTaskList = [...tasks, { id: `todo-${nanoid()}`, name, completed: false }]
 		setTasks(newTaskList)
+		toggleModal()
 	}
 
 	function deleteTask(id) {
@@ -41,11 +44,24 @@ function App(props) {
 		setTasks(updatedTasks)
 	}
 
+	function toggleModal() {
+		setIsOpen(!isOpen)
+	}
+
 	return (
 		<main className="m-4">
 			{' '}
-			{/* Tailwind: margin level 4 on all sides */}
-			<AddTaskForm onNewTask={addTask} />
+			<button
+				onClick={toggleModal}
+				className="px-2 py-1 rounded-md bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800">
+				Add Task
+			</button>
+			{isOpen ? (
+				<Modal headerLabel="Add Task" onCloseRequested={toggleModal}>
+					{/* Tailwind: margin level 4 on all sides */}
+					<AddTaskForm onNewTask={addTask} />
+				</Modal>
+			) : null}
 			<section className="flex flex-col mt-4 gap-2">
 				<h1 className="text-xl font-bold">To do</h1>
 				<ul className="flex flex-col gap-1">{taskList}</ul>
