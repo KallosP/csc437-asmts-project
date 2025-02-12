@@ -1,6 +1,6 @@
 import React from 'react'
 
-function AddTaskForm({ onNewTask }) {
+function AddTaskForm({ onNewTask, closeModal }) {
 	const [textField, setTextField] = React.useState('')
 	function handleChange(e) {
 		setTextField(e.target.value)
@@ -8,6 +8,7 @@ function AddTaskForm({ onNewTask }) {
 	function handleButtonClicked() {
 		onNewTask(textField) // onNewTask is from props
 		setTextField('')
+		closeModal()
 	}
 	return (
 		<div>

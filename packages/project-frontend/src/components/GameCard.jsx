@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function GameCard(props) {
-
 	const handleClick = () => {
 		console.log('Game clicked')
 	}
@@ -23,27 +22,23 @@ export default function GameCard(props) {
 					{/* Tags */}
 					<div className="mt-2 overflow-hidden">
 						<ul className="flex gap-2 truncate">
-                            {/* Skill Tag */}
-							<li className="bg-blue-300 rounded-full px-2 py-1 flex gap-2">
-								<img src={props.skillTag[0]} className="w-6 h-6"></img>
+							{/* Skill Tag */}
+							<li className="bg-blue-300 rounded-full px-4 py-1 flex gap-2">
 								<p>{props.skillTag[1]}</p>
 							</li>
-                            {/* Location Tag */}
-							<li className="bg-blue-300 rounded-full px-2 py-1 flex gap-2">
-								<img src={props.locationTag[0]} className="w-6 h-6"></img>
+							{/* Location Tag */}
+							<li className="bg-blue-300 rounded-full px-4 py-1 flex gap-2">
 								<p>{props.locationTag[1]}</p>
 							</li>
-                            {/* Players Tag */}
-							<li className="bg-blue-300 rounded-full px-2 py-1 flex gap-2">
+							{/* Players Tag */}
+							<li className="bg-blue-300 rounded-full px-4 py-1 flex gap-2">
 								<img src={props.playersTag[0]} className="w-6 h-6"></img>
 								<p>{props.playersTag[1]}</p>
 							</li>
 						</ul>
 					</div>
 					{/* Game Description */}
-					<p className="mt-4 truncate">
-                        {props.description}
-					</p>
+					<p className="mt-4 truncate">{props.description}</p>
 				</div>
 			</div>
 		</button>

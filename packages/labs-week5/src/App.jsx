@@ -3,6 +3,7 @@ import AddTaskForm from './components/AddTaskForm.jsx'
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
 import Modal from './components/Modal.jsx'
+import { GroceryPanel } from './GroceryPanel.jsx'
 
 function App(props) {
 	const [tasks, setTasks] = useState(props.tasks)
@@ -22,7 +23,6 @@ function App(props) {
 	function addTask(name) {
 		const newTaskList = [...tasks, { id: `todo-${nanoid()}`, name, completed: false }]
 		setTasks(newTaskList)
-		toggleModal()
 	}
 
 	function deleteTask(id) {
@@ -59,12 +59,15 @@ function App(props) {
 			{isOpen ? (
 				<Modal headerLabel="Add Task" onCloseRequested={toggleModal}>
 					{/* Tailwind: margin level 4 on all sides */}
-					<AddTaskForm onNewTask={addTask} />
+					<AddTaskForm onNewTask={addTask} closeModal={toggleModal} />
 				</Modal>
 			) : null}
 			<section className="flex flex-col mt-4 gap-2">
 				<h1 className="text-xl font-bold">To do</h1>
 				<ul className="flex flex-col gap-1">{taskList}</ul>
+			</section>
+			<section className="mt-4">
+				<GroceryPanel addTask={addTask} />
 			</section>
 		</main>
 	)
