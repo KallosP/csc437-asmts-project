@@ -21,7 +21,7 @@ export default function TopBar({ handleMenuClick, darkMode, toggleDarkMode }) {
 			<button
 				onClick={toggleDarkMode}
 				className="w-14 h-10 cursor-pointer dark:bg-dark-toggle-button dark:text-dark-toggle-button-text bg-toggle-button text-toggle-button-text rounded-full transition-all duration-300">
-				{darkMode ? 'Light' : 'Dark'}
+				{localStorage.getItem('darkMode') === 'true' ? 'Light' : 'Dark'}
 			</button>
 		</div>
 	)

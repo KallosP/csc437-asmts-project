@@ -3,6 +3,8 @@ import GameCard from '../components/GameCard'
 import SoccerBall from '../assets/soccer-ball.png'
 import SearchBar from '../components/SearchBar'
 import LeftSidebar from '../components/LeftSidebar'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default function SearchPage({openLeftSidebar}) {
 	return (
@@ -30,6 +32,10 @@ export default function SearchPage({openLeftSidebar}) {
 							))}
 					</ul>
 				</div>
+				{/* Add Game */}
+				<button className="fixed cursor-pointer transition-all duration-300 lg:bottom-10 lg:right-10 bottom-5 right-5 bg-button-background hover:bg-button-hover focus:bg-button-focus dark:bg-dark-button-background dark:hover:bg-dark-button-hover dark:focus:bg-dark-button-focus text-button-text font-bold rounded-full py-4 px-4 rounded">
+					<FontAwesomeIcon icon={faPlus} className="w-6"/>
+				</button>
 			</div>
 		</>
 	)

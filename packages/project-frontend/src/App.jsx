@@ -13,11 +13,19 @@ function App() {
 
 	function toggleDarkMode() {
 		setDarkMode(!darkMode)
+		localStorage.setItem('darkMode', JSON.stringify(!darkMode))
 	}
 
 	return (
-		<div className={`flex ${darkMode ? 'dark' : ''} flex-col h-screen`}>
-			<TopBar handleMenuClick={() => handleMenuClick()} darkMode={darkMode} toggleDarkMode={() => toggleDarkMode()} />
+		<div
+			className={`flex ${
+				localStorage.getItem('darkMode') === 'true' ? 'dark' : ''
+			} flex-col h-screen`}>
+			<TopBar
+				handleMenuClick={() => handleMenuClick()}
+				darkMode={darkMode}
+				toggleDarkMode={() => toggleDarkMode()}
+			/>
 			<SearchPage openLeftSidebar={openLeftSidebar} />
 		</div>
 	)

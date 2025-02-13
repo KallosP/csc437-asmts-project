@@ -28,7 +28,7 @@
 	--color-hamburger: #fff;
 	--color-hamburger-hover: var(--color-blue-600);
 	/* Toggle Button */
-	--color-toggle-button: var(--color-gray-700);
+	--color-toggle-button: #292929;
 	--color-toggle-button-text: #fff;
 	--color-toggle-button-hover: var(--color-gray-800);
 	/* Misc */
