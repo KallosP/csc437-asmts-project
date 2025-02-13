@@ -11,7 +11,7 @@
 	--color-header-text: #fff;
 	/* Misc Text */
 	--color-normal-text: #111;
-	--color-hint-text: var(--color-gray-900);
+	--color-hint-text: var(--color-gray-500);
 	/* Button */
 	--color-button-text: #fff;
 	--color-button-background: var(--color-blue-600);
@@ -31,6 +31,9 @@
 	--color-toggle-button: #292929;
 	--color-toggle-button-text: #fff;
 	--color-toggle-button-hover: var(--color-gray-800);
+	/* Input */
+	--color-input-border: var(--color-gray-300);
+	--color-input-border-ring: var(--color-blue-500);
 	/* Misc */
 	--color-icon: #333;
 	--color-divider: var(--color-gray-300);
@@ -65,6 +68,9 @@
 	--color-dark-toggle-button: #fff;
 	--color-dark-toggle-button-text: var(--color-gray-900);
 	--color-toggle-button-hover: #dbdbdb;
+	/* Input */
+	--color-dark-input-border: var(--color-gray-500);
+	--color-dark-input-border-ring: var(--color-blue-500);
 	/* Misc */
 	--color-dark-icon: var(--color-gray-400);
     --color-dark-svg: #fff;

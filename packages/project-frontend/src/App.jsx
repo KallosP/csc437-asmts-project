@@ -25,7 +25,7 @@ function App() {
 			<div
 				className={`flex ${
 					localStorage.getItem('darkMode') === 'true' ? 'dark' : ''
-				} flex-col h-screen overflow-y-scroll`}>
+				} flex-col h-screen bg-background dark:bg-dark-background duration-300 transition-all overflow-y-scroll`}>
 				<TopBar
 					handleMenuClick={() => handleMenuClick()}
 					darkMode={darkMode}
