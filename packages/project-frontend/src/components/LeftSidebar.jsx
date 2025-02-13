@@ -1,9 +1,12 @@
 import React from 'react'
 import FilterItem from './FilterItem'
 
-export default function LeftSidebar() {
+export default function LeftSidebar({ openLeftSidebar }) {
 	return (
-		<aside className="w-72 h-auto hidden lg:flex flex-col shadow-lg relative overflow-y-auto dark:bg-dark-elevated-background bg-elevated-background">
+		<aside
+			className={`absolute top-0 left-0 w-72 h-full shadow-lg bg-elevated-background dark:bg-dark-elevated-background duration-300 transition-transform ${
+				openLeftSidebar ? 'translate-x-0' : '-translate-x-full'
+			} lg:translate-x-0 lg:relative lg:flex lg:flex-col z-50 overflow-y-auto`}>
 			<div className="p-6 space-y-10">
 				{/* Sport Filters */}
 				<div className="space-y-2">
@@ -19,7 +22,7 @@ export default function LeftSidebar() {
 					</ul>
 				</div>
 			</div>
-			<hr className="w-full border-divider"></hr>
+			<hr className="w-full border-divider dark:border-dark-divider"></hr>
 			<div className="p-6 space-y-10">
 				{/* Level Filters */}
 				<div className="space-y-2">

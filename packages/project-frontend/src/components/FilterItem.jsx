@@ -1,14 +1,15 @@
 export default function FilterItem(props) {
 	return (
-		<div className="c-cb flex items-center gap-2">
+		<label className="c-cb flex items-center gap-2 cursor-pointer">
 			<input
 				id={props.id}
 				type="checkbox"
-				className="w-4 h-4 bg-blue-500  accent-checkbox-checked dark:accent-dark-checkbox-checked" 
+				className="peer hidden"
 			/>
-			<label className="text-md text-normal-text dark:text-dark-normal-text" htmlFor={props.id}>
+			<div className="w-4 h-4 transition-all duration-200 rounded border border-checkbox-border bg-checkbox-background dark:bg-dark-checkbox-background peer-checked:bg-blue-500 peer-checked:border-blue-500" />
+			<span className="text-md text-normal-text dark:text-dark-normal-text">
 				{props.name}
-			</label>
-		</div>
+			</span>
+		</label>
 	)
 }

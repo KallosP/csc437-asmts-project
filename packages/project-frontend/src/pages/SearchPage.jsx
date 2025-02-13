@@ -4,11 +4,11 @@ import SoccerBall from '../assets/soccer-ball.png'
 import SearchBar from '../components/SearchBar'
 import LeftSidebar from '../components/LeftSidebar'
 
-export default function SearchPage() {
+export default function SearchPage({openLeftSidebar}) {
 	return (
 		<>
-			<div className="flex flex-1 bg-background dark:bg-dark-background">
-				<LeftSidebar />
+			<div className="flex relative flex-1 bg-background dark:bg-dark-background">
+				<LeftSidebar openLeftSidebar={openLeftSidebar}/>
 				<div className="flex flex-1 flex-col px-5 justify-center">
 					<div className="mt-5">
 						<SearchBar />
