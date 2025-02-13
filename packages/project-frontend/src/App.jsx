@@ -1,7 +1,10 @@
 import './App.css'
 import SearchPage from './pages/SearchPage'
 import TopBar from './components/TopBar'
+import LoginPage from './pages/LoginPage'
+import AddGamePage from './pages/AddGamePage'
 import { useState } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 function App() {
 	const [openLeftSidebar, setOpenLeftSidebar] = useState(false)
@@ -9,6 +12,7 @@ function App() {
 
 	function handleMenuClick() {
 		setOpenLeftSidebar(!openLeftSidebar)
+		console.log("CLICKED", openLeftSidebar)
 	}
 
 	function toggleDarkMode() {
@@ -17,17 +21,23 @@ function App() {
 	}
 
 	return (
-		<div
-			className={`flex ${
-				localStorage.getItem('darkMode') === 'true' ? 'dark' : ''
-			} flex-col h-screen`}>
-			<TopBar
-				handleMenuClick={() => handleMenuClick()}
-				darkMode={darkMode}
-				toggleDarkMode={() => toggleDarkMode()}
-			/>
-			<SearchPage openLeftSidebar={openLeftSidebar} />
-		</div>
+		<Router>
+			<div
+				className={`flex ${
+					localStorage.getItem('darkMode') === 'true' ? 'dark' : ''
+				} flex-col h-screen overflow-y-scroll`}>
+				<TopBar
+					handleMenuClick={() => handleMenuClick()}
+					darkMode={darkMode}
+					toggleDarkMode={() => toggleDarkMode()}
+				/>
+				<Routes>
+					<Route path="/" element={<LoginPage />} />
+					<Route path="/search" element={<SearchPage openLeftSidebar={openLeftSidebar}/>} />
+					<Route path="/add-game" element={<AddGamePage />} />
+				</Routes>
+			</div>
+		</Router>
 	)
 }
 
