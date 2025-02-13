@@ -1,5 +1,4 @@
 import React from 'react'
-import TopBar from '../components/TopBar'
 import GameCard from '../components/GameCard'
 import SoccerBall from '../assets/soccer-ball.png'
 import SearchBar from '../components/SearchBar'
@@ -8,8 +7,7 @@ import LeftSidebar from '../components/LeftSidebar'
 export default function SearchPage() {
 	return (
 		<>
-			<TopBar />
-			<div className="flex flex-1 bg-darkGray">
+			<div className="flex flex-1 bg-background dark:bg-dark-background">
 				<LeftSidebar />
 				<div className="flex flex-1 flex-col px-5 justify-center">
 					<div className="mt-5">

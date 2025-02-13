@@ -1,9 +1,54 @@
 @import 'tailwindcss';
 
 @theme {
-    /* Font */
-    --font-header: 'League Gothic', 'sans-serif';
+	/* Font */
+	--font-header: 'League Gothic', 'sans-serif';
+	/* Light Mode Colors ----- */
+    /* Main Background */
+    --color-background: var(--color-gray-100);
+	/* Header */
+	--color-header-background: var(--color-blue-500);
+	--color-header-text: #fff;
+	/* Misc Text */
+	--color-normal-text: #111;
+	--color-hint-text: var(--color-gray-900);
+	/* Button */
+	--color-button-text: #fff;
+	--color-button-background: var(--color-blue-600);
+	--color-button-hover: var(--color-blue-700);
+	--color-button-focus: var(--color-blue-800);
+	/* Elevated */
+	--color-elevated-background: #fff;
+	--color-card-hover: var(--color-blue-50);
+	/* Misc */
+	--color-icon: #333;
+	--color-divider: var(--color-gray-300);
+	--color-checkbox-checked: var(--color-blue-500);
+    --color-tag: var(--color-blue-300);
+    --color-svg: #000;
 
-    /* Colors */
-    --color-darkGray: #EEEEEE;
+	/* Dark Mode Colors ----- */
+    /* Main Background */
+    --color-dark-background: #1f1f1f;
+	/* Header */
+	--color-dark-header-background: #1e3a8a; 
+	--color-dark-header-text: #000; 
+	/* Misc Text */
+	--color-dark-normal-text: #eee;
+	--color-dark-hint-text: var(--color-gray-100);
+	/* Button */
+	--color-dark-button-text: #000; 
+	--color-dark-button-background: var(--color-blue-700);
+	--color-dark-button-hover: var(--color-blue-800); 
+	--color-dark-button-focus: var(--color-blue-900); 
+	/* Elevated */
+	--color-dark-elevated-background: #292929; 
+	--color-dark-card-hover: var(--color-blue-900); 
+	/* Misc */
+	--color-dark-icon: var(--color-gray-400);
+    --color-dark-svg: #fff;
+	--color-dark-divider: var(--color-gray-700);
+	--color-dark-checkbox-checked: var(--color-blue-700);
+    --color-dark-tag: var(--color-blue-700);
 }
+@custom-variant dark (&:where(.dark, .dark *));

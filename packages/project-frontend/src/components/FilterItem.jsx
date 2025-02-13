@@ -4,9 +4,9 @@ export default function FilterItem(props) {
 			<input
 				id={props.id}
 				type="checkbox"
-				className="w-4 h-4 accent-blue-500" // Make checkbox bigger and add color
+				className="w-4 h-4 bg-blue-500  accent-checkbox-checked dark:accent-dark-checkbox-checked" 
 			/>
-			<label className="text-md" htmlFor={props.id}>
+			<label className="text-md text-normal-text dark:text-dark-normal-text" htmlFor={props.id}>
 				{props.name}
 			</label>
 		</div>
