@@ -5,14 +5,20 @@ import { useState } from 'react'
 
 function App() {
 	const [openLeftSidebar, setOpenLeftSidebar] = useState(false)
+	const [darkMode, setDarkMode] = useState(false)
+
 	function handleMenuClick() {
 		setOpenLeftSidebar(!openLeftSidebar)
-		console.log(openLeftSidebar)
 	}
+
+	function toggleDarkMode() {
+		setDarkMode(!darkMode)
+	}
+
 	return (
-		<div className="flex flex-col h-screen">
-			<TopBar handleMenuClick={() => handleMenuClick()} />
-			<SearchPage openLeftSidebar={openLeftSidebar}/>
+		<div className={`flex ${darkMode ? 'dark' : ''} flex-col h-screen`}>
+			<TopBar handleMenuClick={() => handleMenuClick()} darkMode={darkMode} toggleDarkMode={() => toggleDarkMode()} />
+			<SearchPage openLeftSidebar={openLeftSidebar} />
 		</div>
 	)
 }
