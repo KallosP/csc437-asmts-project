@@ -41,10 +41,10 @@ export default function GamePage(props) {
 								<hr className="w-full mt-2 border-divider dark:border-dark-divider"></hr>
 								<ul>
 									{props.attendees === undefined ? (
-										<li className="text-normal-text dark:text-dark-normal-text">No attendees</li>
+										<li className="mt-2 text-normal-text dark:text-dark-normal-text">No attendees</li>
 									) : (
 										props.attendees.map((attendee) => (
-											<li className="text-normal-text dark:text-dark-normal-text text-wrap break-words">{attendee}</li>
+											<li className="mt-2 text-normal-text dark:text-dark-normal-text text-wrap break-words">{attendee}</li>
 										))
 									)}
 								</ul>

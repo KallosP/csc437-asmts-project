@@ -14,7 +14,7 @@ export default function CommentSection() {
 	}
 
 	return (
-		<div className="flex flex-col w-full mx-auto mt-4 py-4 px-16 rounded-lg ">
+		<div className="flex flex-col w-full mx-auto mt-4 py-4 xs:px-8 sm:px-16 rounded-lg ">
             <h3 className="text-2xl dark:text-dark-normal-text text-normal-text">Add Comment</h3>
 			{/* Comment Input */}
 			<div className="flex gap-2 items-center mt-2">
