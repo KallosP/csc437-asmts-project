@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate, useLocation } from 'react-router-dom'
 import GenericSport from '../assets/generic-sport.jpg'
+import LoadingSpinner from '../components/LoadingSpinner'
 
-// TODO: figure out player count
+// TODO: working search bar and filtering (keep it simple)
 export default function SearchPage({ openLeftSidebar }) {
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -63,9 +64,7 @@ export default function SearchPage({ openLeftSidebar }) {
 					</div>
 					{/* Game List */}
 					{loading ? (
-						<div className="flex justify-center items-center h-40">
-							<div className="animate-spin rounded-full h-10 w-10 border-t-4 border-button-background dark:border-dark-button-background"></div>
-						</div>
+						<LoadingSpinner />
 					) : (
 						<ul className="flex flex-col w-full gap-10 mb-10 items-center mt-5">
 							{games.map((game, i) => (

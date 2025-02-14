@@ -1,12 +1,17 @@
 import { useState } from 'react'
+import LoadingSpinner from './LoadingSpinner'
 
 export default function CommentSection() {
 	const [comment, setComment] = useState('')
 	const [comments, setComments] = useState([])
+	const [isLoading, setIsLoading] = useState(false)
 
-	const handlePostComment = () => {
+	async function handlePostComment() {
 		// Ignore empty comments
 		if (comment.trim() === '') return
+		setIsLoading(true)
+		await new Promise((resolve) => setTimeout(resolve, 1000))
+		setIsLoading(false)
 		// Add new comment at the top
 		setComments([{ text: comment, id: Date.now() }, ...comments])
 		// Clear input field
@@ -15,7 +20,7 @@ export default function CommentSection() {
 
 	return (
 		<div className="flex flex-col w-full mx-auto mt-4 py-4 xs:px-8 sm:px-16 rounded-lg ">
-            <h3 className="text-2xl dark:text-dark-normal-text text-normal-text">Add Comment</h3>
+			<h3 className="text-2xl dark:text-dark-normal-text text-normal-text">Add Comment</h3>
 			{/* Comment Input */}
 			<div className="flex gap-2 items-center mt-2">
 				<input
@@ -32,15 +37,21 @@ export default function CommentSection() {
 				</button>
 			</div>
 
-            <h3 className="mt-8 text-2xl dark:text-dark-normal-text text-normal-text">Posted Comments</h3>
+			<h3 className="mt-8 text-2xl dark:text-dark-normal-text text-normal-text">Posted Comments</h3>
 			{/* Comment List */}
-			<ul className="mt-2 space-y-2">
-				{comments.map((c, index) => (
-					<li key={index} className="p-4 rounded-lg h-auto text-wrap break-words bg-elevated-background dark:bg-dark-elevated-background">
-						<p className="dark:text-dark-normal-text text-normal-text text-lg">{c.text}</p>
-					</li>
-				))}
-			</ul>
+			{isLoading ? (
+				<LoadingSpinner />
+			) : (
+				<ul className="mt-2 space-y-2">
+					{comments.map((c, index) => (
+						<li
+							key={index}
+							className="p-4 rounded-lg h-auto text-wrap break-words bg-elevated-background dark:bg-dark-elevated-background">
+							<p className="dark:text-dark-normal-text text-normal-text text-lg">{c.text}</p>
+						</li>
+					))}
+				</ul>
+			)}
 		</div>
 	)
 }
