@@ -35,8 +35,8 @@ export default function CommentSection() {
             <h3 className="mt-8 text-2xl dark:text-dark-normal-text text-normal-text">Posted Comments</h3>
 			{/* Comment List */}
 			<ul className="mt-2 space-y-2">
-				{comments.map((c) => (
-					<li key={c.id} className="p-4 rounded-lg h-auto text-wrap break-words bg-elevated-background dark:bg-dark-elevated-background">
+				{comments.map((c, index) => (
+					<li key={index} className="p-4 rounded-lg h-auto text-wrap break-words bg-elevated-background dark:bg-dark-elevated-background">
 						<p className="dark:text-dark-normal-text text-normal-text text-lg">{c.text}</p>
 					</li>
 				))}

@@ -6,7 +6,6 @@ import CommentSection from '../components/CommentSection'
 export default function GamePage(props) {
 	const location = useLocation()
 	const tags = location.state || []
-	console.log(tags)
 	return (
 		<div className="flex self-center justify-center items-center w-full py-4 lg:px-16">
 			<div className="flex flex-4 flex-col self-center justify-center items-center w-full p-4">
@@ -43,8 +42,8 @@ export default function GamePage(props) {
 									{props.attendees === undefined ? (
 										<li className="mt-2 text-normal-text dark:text-dark-normal-text">No attendees</li>
 									) : (
-										props.attendees.map((attendee) => (
-											<li className="mt-2 text-normal-text dark:text-dark-normal-text text-wrap break-words">{attendee}</li>
+										props.attendees.map((attendee, index) => (
+											<li key={index} className="mt-2 text-normal-text dark:text-dark-normal-text text-wrap break-words">{attendee}</li>
 										))
 									)}
 								</ul>
