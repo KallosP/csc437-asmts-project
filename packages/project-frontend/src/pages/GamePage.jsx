@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import SoccerBall from '../assets/soccer-ball.png'
 import { useLocation } from 'react-router-dom'
 import Tag from '../components/Tag'
@@ -27,25 +26,25 @@ export default function GamePage(props) {
 							</div>
 						</div>
 						{/* Description/Attendees */}
-						<div className="flex mt-4 p-4 border border-divider box-shadow shadow-sm dark:border-dark-divider rounded-lg ">
+						<div className="flex flex-col lg:flex-row mt-4 p-4 border border-divider box-shadow shadow-sm dark:border-dark-divider rounded-lg ">
 							{/* Description */}
-							<div className="flex-4">
+							<div className="flex-4 mb-4 lg:mb-0">
 								<h2 className="text-3xl text-normal-text dark:text-dark-normal-text">Description</h2>
 								<hr className="w-full mt-2 border-divider dark:border-dark-divider"></hr>
-								<p className="mt-2 text-normal-text dark:text-dark-normal-text">
+								<p className="mt-2 text-normal-text text-wrap break-words dark:text-dark-normal-text">
 									{props.description || 'No Description'}
 								</p>
 							</div>
 							{/* Attendees */}
-							<div className="flex-1 text-center border-l border-divider dark:border-dark-divider">
+							<div className="flex-1 lg:text-center lg:border-l border-divider dark:border-dark-divider">
 								<h2 className="text-3xl text-normal-text dark:text-dark-normal-text">Attendees</h2>
 								<hr className="w-full mt-2 border-divider dark:border-dark-divider"></hr>
 								<ul>
 									{props.attendees === undefined ? (
-										<li className="text-normal-text dark:text-dark-normal-text ">No attendees</li>
+										<li className="text-normal-text dark:text-dark-normal-text">No attendees</li>
 									) : (
 										props.attendees.map((attendee) => (
-											<li className="text-normal-text dark:text-dark-normal-text">{attendee}</li>
+											<li className="text-normal-text dark:text-dark-normal-text text-wrap break-words">{attendee}</li>
 										))
 									)}
 								</ul>
