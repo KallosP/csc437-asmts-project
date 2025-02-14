@@ -26,9 +26,9 @@ export default function SearchPage({openLeftSidebar}) {
 									key={i}
 									img={SoccerBall}
 									name={'Pickup Soccer'}
-									skillTag={[SoccerBall, 'Recreational']}
-									locationTag={[SoccerBall, 'San Luis Obispo']}
-									playersTag={[SoccerBall, '8/11']}
+									skillTag={'Recreational'}
+									locationTag={'San Luis Obispo'}
+									playersTag={'8'}
 									description={'Cool description'}
 								/>
 							))}

@@ -3,6 +3,7 @@ import SearchPage from './pages/SearchPage'
 import TopBar from './components/TopBar'
 import LoginPage from './pages/LoginPage'
 import AddGamePage from './pages/AddGamePage'
+import GamePage from './pages/GamePage'
 import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
@@ -12,7 +13,7 @@ function App() {
 
 	function handleMenuClick() {
 		setOpenLeftSidebar(!openLeftSidebar)
-		console.log("CLICKED", openLeftSidebar)
+		console.log('CLICKED', openLeftSidebar)
 	}
 
 	function toggleDarkMode() {
@@ -33,7 +34,8 @@ function App() {
 				/>
 				<Routes>
 					<Route path="/" element={<LoginPage />} />
-					<Route path="/search" element={<SearchPage openLeftSidebar={openLeftSidebar}/>} />
+					<Route path="/search" element={<SearchPage openLeftSidebar={openLeftSidebar} />} />
+					<Route path="/view-game" element={<GamePage />} />
 					<Route path="/add-game" element={<AddGamePage />} />
 				</Routes>
 			</div>

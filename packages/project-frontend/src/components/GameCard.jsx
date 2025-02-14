@@ -2,11 +2,22 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
+import Tag from './Tag'
 
 export default function GameCard(props) {
+	const navigate = useNavigate()
+
 	const handleClick = () => {
 		console.log('Game clicked')
+		navigate('/view-game', { state: tags })
 	}
+
+	const tags = [
+		{ title: props.skillTag, icon: null},
+		{ title: props.locationTag, icon: faLocationDot},
+		{ title: props.playersTag, icon: faUser},
+	]
 
 	return (
 		<button
@@ -27,24 +38,15 @@ export default function GameCard(props) {
 					{/* Tags */}
 					<div className="mt-2 overflow-hidden">
 						<ul className="flex gap-2 truncate">
-							{/* Skill Tag */}
-							<li className="bg-tag dark:bg-dark-tag rounded-full items-center px-4 py-1 flex gap-2">
-								<p className="text-normal-text dark:text-dark-normal-text">{props.skillTag[1]}</p>
-							</li>
-							{/* Location Tag */}
-							<li className="bg-tag dark:bg-dark-tag rounded-full items-center px-4 py-1 flex gap-2">
-								<FontAwesomeIcon icon={faLocationDot} className="text-svg dark:text-dark-svg" />
-								<p className='text-normal-text dark:text-dark-normal-text'>{props.locationTag[1]}</p>
-							</li>
-							{/* Players Tag */}
-							<li className="bg-tag dark:bg-dark-tag rounded-full items-center px-4 py-1 flex gap-2">
-								<FontAwesomeIcon icon={faUser} className="text-svg dark:text-dark-svg" />
-								<p className='text-normal-text dark:text-dark-normal-text'>{props.playersTag[1]}</p>
-							</li>
+							{tags.map((tag, index) => (
+								<Tag key={index} title={tag.title} icon={tag.icon} />
+							))}
 						</ul>
 					</div>
 					{/* Game Description */}
-					<p className="mt-4 truncate text-normal-text dark:text-dark-normal-text">{props.description}</p>
+					<p className="mt-4 truncate text-normal-text dark:text-dark-normal-text">
+						{props.description}
+					</p>
 				</div>
 			</div>
 		</button>

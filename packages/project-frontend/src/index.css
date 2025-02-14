@@ -48,7 +48,7 @@
 	--color-dark-header-text: #fff; 
 	/* Misc Text */
 	--color-dark-normal-text: #eee;
-	--color-dark-hint-text: var(--color-gray-100);
+	--color-dark-hint-text: var(--color-gray-300);
 	/* Button */
 	--color-dark-button-text: #fff; 
 	--color-dark-button-background: var(--color-blue-700);

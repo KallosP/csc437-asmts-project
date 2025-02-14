@@ -23,11 +23,11 @@ export default function AddGamePage() {
 	}
 
 	return (
-		<div className="flex flex-col self-center justify-center items-center h-full w-full p-4">
+		<div className="flex flex-col self-center justify-center items-center w-full p-4">
 			<button
 				onClick={handleBack}
 				type="submit"
-				className="mb-2 mt-4 text-button-text dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 ">
+				className="mb-4 text-button-text dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 ">
 				Back
 			</button>
 			<form
