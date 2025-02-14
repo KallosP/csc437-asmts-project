@@ -12,6 +12,7 @@
 	/* Misc Text */
 	--color-normal-text: #111;
 	--color-hint-text: var(--color-gray-500);
+	--color-link-text: var(--color-blue-500);
 	/* Button */
 	--color-button-text: #fff;
 	--color-button-background: var(--color-blue-600);
@@ -49,6 +50,7 @@
 	/* Misc Text */
 	--color-dark-normal-text: #eee;
 	--color-dark-hint-text: var(--color-gray-300);
+	--color-dark-link-text: var(--color-blue-500);
 	/* Button */
 	--color-dark-button-text: #fff; 
 	--color-dark-button-background: var(--color-blue-700);
