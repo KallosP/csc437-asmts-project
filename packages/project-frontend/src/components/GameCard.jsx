@@ -10,7 +10,7 @@ export default function GameCard(props) {
 
 	const handleClick = () => {
 		console.log('Game clicked')
-		navigate('/view-game', { state: tags })
+		navigate('/view-game', { state: {tags, ...props}  })
 	}
 
 	const tags = [
@@ -26,9 +26,9 @@ export default function GameCard(props) {
 			<div className="lg:flex gap-8">
 				<div className="md:shrink-0">
 					<img
-						className="w-full lg:rounded-3xl object-cover "
+						className="w-sm lg:rounded-3xl object-cover "
 						src={props.img}
-						alt="Soccer ball on field"
+						alt="sport ball"
 					/>
 				</div>
 				<div className="lg:p-0 p-8 overflow-hidden">

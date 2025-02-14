@@ -1,42 +1,93 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import GameCard from '../components/GameCard'
-import SoccerBall from '../assets/soccer-ball.png'
 import SearchBar from '../components/SearchBar'
 import LeftSidebar from '../components/LeftSidebar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import GenericSport from '../assets/generic-sport.jpg'
 
-export default function SearchPage({openLeftSidebar}) {
+// TODO: figure out player count
+export default function SearchPage({ openLeftSidebar }) {
 	const navigate = useNavigate()
+	const location = useLocation()
+
+	const [games, setGames] = React.useState([
+		{
+			id: 1,
+			img: GenericSport,
+			title: 'Game One',
+			level: 'Casual',
+			location: 'Park A',
+			description: 'Fun outdoor game!',
+			players: ['John Doe', 'Jane Doe']
+		},
+		{
+			id: 2,
+			img: GenericSport,
+			title: 'Game Two',
+			level: 'Recreational',
+			location: 'Stadium B',
+			description: 'Competitive team play!',
+			players: ['Bill', 'Bob', 'Charlie', 'Dean']
+		}
+	])
+	const [loading, setLoading] = React.useState(true) // Loading state
+	const gameData = location.state;
+
+	// TEMPORARY: Simulating fetching games from a backend
+	useEffect(() => {
+		const fetchGames = async () => {
+			setLoading(true)
+			await new Promise((resolve) => setTimeout(resolve, 1000))
+			setLoading(false)
+		}
+
+		fetchGames()
+	}, [games])
+
+	// TEMPORARY
+	useEffect(() => {
+		if (gameData) {
+			setGames([...games, gameData])
+		}
+	}, [gameData, navigate, location.pathname])
+
 	return (
 		<>
 			<div className="flex relative flex-1 bg-background dark:bg-dark-background">
-				<LeftSidebar openLeftSidebar={openLeftSidebar}/>
+				<LeftSidebar openLeftSidebar={openLeftSidebar} />
 				<div className="flex flex-1 flex-col px-5 justify-center">
 					<div className="mt-5">
 						<SearchBar />
 					</div>
 					{/* Game List */}
-					<ul className="flex flex-col w-full gap-10 mb-10 items-center mt-5">
-						{Array(5)
-							.fill(0)
-							.map((_, i) => (
+					{loading ? (
+						<div className="flex justify-center items-center h-40">
+							<div className="animate-spin rounded-full h-10 w-10 border-t-4 border-button-background dark:border-dark-button-background"></div>
+						</div>
+					) : (
+						<ul className="flex flex-col w-full gap-10 mb-10 items-center mt-5">
+							{games.map((game, i) => (
 								<GameCard
 									key={i}
-									img={SoccerBall}
-									name={'Pickup Soccer'}
-									skillTag={'Recreational'}
-									locationTag={'San Luis Obispo'}
-									playersTag={'8'}
-									description={'Cool description'}
+									img={game.img}
+									name={game.title}
+									skillTag={game.level}
+									locationTag={game.location}
+									players={game.players}
+									playersTag={game.players.length}
+									description={game.description}
 								/>
 							))}
-					</ul>
+						</ul>
+					)}
 				</div>
 				{/* Add Game */}
-				<button onClick={() => navigate('/add-game')} className="fixed cursor-pointer transition-all duration-300 lg:bottom-10 lg:right-10 bottom-5 right-5 bg-button-background hover:bg-button-hover focus:bg-button-focus dark:bg-dark-button-background dark:hover:bg-dark-button-hover dark:focus:bg-dark-button-focus text-button-text font-bold rounded-full py-4 px-4 rounded">
-					<FontAwesomeIcon icon={faPlus} className="w-6"/>
+				<button
+					onClick={() => navigate('/add-game')}
+					className="fixed cursor-pointer transition-all duration-300 lg:bottom-10 lg:right-10 bottom-5 right-5 bg-button-background hover:bg-button-hover focus:bg-button-focus dark:bg-dark-button-background dark:hover:bg-dark-button-hover dark:focus:bg-dark-button-focus text-button-text font-bold rounded-full py-4 px-4 rounded">
+					<FontAwesomeIcon icon={faPlus} className="w-6" />
 				</button>
 			</div>
 		</>

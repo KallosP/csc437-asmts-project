@@ -1,21 +1,37 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SoccerBall from '../assets/soccer-ball.png'
+import BasketballBall from '../assets/basketball-ball.jpg'
+import GenericSport from '../assets/generic-sport.jpg'
 
+// TODO: add all sports/images
 export default function AddGamePage() {
 	const [title, setTitle] = useState('')
 	const [location, setLocation] = useState('')
 	const [description, setDescription] = useState('')
 	const [sport, setSport] = useState('')
 	const [level, setLevel] = useState('Casual')
+	const [img, setImg] = useState(GenericSport)
 
 	const navigate = useNavigate()
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const gameData = { title, location, description, sport, level }
+		// FIXME: change how/where players is created/added to gameData
+		const players = ['John Doe', 'Jane Doe']
+		const gameData = { title, location, description, sport, level, img, players }
 		console.log('Game Added:', gameData)
 		// TODO: send gameData to backend
-        navigate('/search')
+        navigate('/search', { state: gameData })
+	}
+
+	const handleSportSelection = (selectedSport) => {
+		setSport(selectedSport)
+		if (selectedSport === 'soccer') setImg(SoccerBall)
+		else if (selectedSport === 'basketball') setImg(BasketballBall)
+		else if (selectedSport === 'tennis') setImg(BasketballBall)
+		else if (selectedSport === 'volleyball') setImg(BasketballBall)
+		else setImg(GenericSport)
 	}
 
 	return (
@@ -73,7 +89,7 @@ export default function AddGamePage() {
 					<label className="block text-gray-700 dark:text-gray-200 mb-1">Sport</label>
 					<select
 						value={sport}
-						onChange={(e) => setSport(e.target.value)}
+						onChange={(e) => handleSportSelection(e.target.value)}
 						className="w-full bg-gray-200 px-3 placeholder:text-hint-text py-2 border-2 border-input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-input-border-ring dark:focus:ring-dark-input-border-ring dark:border-dark-input-border "
 						required>
 						<option value="" disabled>
