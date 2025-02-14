@@ -37,7 +37,7 @@ export default function GameCard(props) {
 					</div>
 					{/* Tags */}
 					<div className="mt-2 overflow-hidden">
-						<ul className="flex gap-2 truncate">
+						<ul className="flex flex-wrap gap-2 truncate">
 							{tags.map((tag, index) => (
 								<Tag key={index} title={tag.title} icon={tag.icon} />
 							))}
