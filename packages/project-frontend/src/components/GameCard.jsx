@@ -26,7 +26,7 @@ export default function GameCard(props) {
 			<div className="lg:flex gap-8">
 				<div className="md:shrink-0">
 					<img
-						className="w-sm lg:rounded-3xl object-cover "
+						className="lg:w-sm w-full lg:rounded-3xl object-cover "
 						src={props.img}
 						alt="sport ball"
 					/>
