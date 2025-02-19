@@ -6,9 +6,15 @@ export default function LoginPage() {
 	const [createNewAccount, setCreateNewAccount] = useState(false)
 
 	const handleLogin = (e) => {
-		console.log(e)
 		e.preventDefault()
-		console.log('Login clicked')
+		console.log(e)
+		console.log(email, password)
+		if (createNewAccount) {
+			console.log('Create account clicked')
+		} 
+		else {
+			console.log('Login clicked')
+		}
 	}
 
 	return (
@@ -73,7 +79,7 @@ export default function LoginPage() {
 					<div className="text-center mt-4">
 						<a
 							onClick={() => setCreateNewAccount(false)}
-							className="cursor-pointer font-medium text-link-text dark:text-dark-link-text hover:underline">
+							className="cursor-pointer text-sm font-medium text-link-text dark:text-dark-link-text hover:underline">
 							Back to Login
 						</a>
 					</div>

@@ -7,7 +7,6 @@ import GamePage from './pages/GamePage'
 import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-// TODO: make login page
 function App() {
 	const [openLeftSidebar, setOpenLeftSidebar] = useState(false)
 	const [darkMode, setDarkMode] = useState(false)
