@@ -1,9 +1,6 @@
 import { groceryFetcher } from './groceryFetcher'
 import React, { useEffect } from 'react'
 
-const MDN_URL =
-	'https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json'
-
 export function useGroceryFetch(source) {
 	const [isLoading, setIsLoading] = React.useState(false)
 	const [error, setError] = React.useState(null)
@@ -18,12 +15,9 @@ export function useGroceryFetch(source) {
 
 	useEffect(() => {
         setIsLoading(true)
-		fetch(MDN_URL)
+		groceryFetcher.fetch("MDN")
 			.then((response) => {
-				if (!response.ok) {
-					throw Error('Something went wrong fetching MDN')
-				}
-				return response.json()
+				return response
 			})
 			.then((data) => {
 				setGroceryData(data)
