@@ -1,9 +1,6 @@
 import React, {useEffect} from 'react'
 import { Spinner } from './Spinner'
-import { groceryFetcher } from './groceryFetcher'
-
-const MDN_URL =
-	'https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json'
+import { useGroceryFetch } from './useGroceryFetch'
 
 /**
  * Creates and returns a new promise that resolves after a specified number of milliseconds.
@@ -11,79 +8,20 @@ const MDN_URL =
  * @param {number} ms the number of milliseconds to delay
  * @returns {Promise<undefined>} a promise that resolves with the value of `undefined` after the specified delay
  */
-function delayMs(ms) {
-	return new Promise((resolve) => setTimeout(resolve, ms))
-}
 
 export function GroceryPanel(props) {
-	const [isLoading, setIsLoading] = React.useState(false)
-	const [error, setError] = React.useState(null)
-	const [groceryData, setGroceryData] = React.useState([])
 	const [selectedDropdown, setSelectedDropdown] = React.useState(false)
+	const {groceryData, isLoading, error} = useGroceryFetch(selectedDropdown)
 
 	function handleAddTodoClicked(item) {
 		const todoName = `Buy ${item.name} (${item.price.toFixed(2)})`
 		props.addTask(todoName)
 	}
 
-	useEffect(() => {
-		fetch(MDN_URL)
-			.then((response) => {
-				if (!response.ok){
-					throw Error("Something went wrong fetching MDN")
-				}
-				return response.json()
-			})
-			.then((data) => {
-				setGroceryData(data)
-			})
-			.catch((error) => {
-				console.log(error)
-				setError(error)
-			})
-	}, [])
-
-	useEffect(() => {
-		fetchData(selectedDropdown)	
-		return () => {isStale = true}
-	}, [selectedDropdown])
-
-	let isStale = false
-	async function fetchData(url) {
-		setGroceryData([])
-		console.log('fetching data from ' + url)
-		setError(null)
-		setIsLoading(true)
-
-		if (url === '') {
-			setIsLoading(false)
-			return
-		}
-
-		groceryFetcher
-			.fetch(url)
-			.then((response) => {
-				console.log('loading', isLoading)
-				return response
-			})
-			.then((data) => {
-				if(!isStale) {
-					setGroceryData(data)
-				}
-			})
-			.catch((error) => {
-				if(!isStale) {
-					console.log("TEST", error)
-					setError(error)
-				}
-			})
-		setIsLoading(false)
-	}
-
 	function handleDropdownChange(changeEvent) {
-		setError(null)
 		setSelectedDropdown(changeEvent.target.value)
 	}
+
 
 	return (
 		<div>
