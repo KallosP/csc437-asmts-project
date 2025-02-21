@@ -10,7 +10,7 @@ import { useGroceryFetch } from './useGroceryFetch'
  */
 
 export function GroceryPanel(props) {
-	const [selectedDropdown, setSelectedDropdown] = React.useState(false)
+	const [selectedDropdown, setSelectedDropdown] = React.useState("MDN")
 	const {groceryData, isLoading, error} = useGroceryFetch(selectedDropdown)
 
 	function handleAddTodoClicked(item) {
@@ -22,6 +22,7 @@ export function GroceryPanel(props) {
 		setSelectedDropdown(changeEvent.target.value)
 	}
 
+	console.log("ERROR", error)
 
 	return (
 		<div>
