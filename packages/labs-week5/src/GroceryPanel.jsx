@@ -31,7 +31,7 @@ export function GroceryPanel(props) {
 				Get prices from:
 				<select
 					onChange={(e) => handleDropdownChange(e)}
-					disabled={isLoading}
+					disabled={false}
 					value={selectedDropdown}
 					className="border border-gray-300 p-1 rounded-sm disabled:opacity-50">
 					<option value="MDN">MDN</option>
