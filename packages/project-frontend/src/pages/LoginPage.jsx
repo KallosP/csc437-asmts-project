@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [createNewAccount, setCreateNewAccount] = useState(false)
+	const navigate = useNavigate()
 
 	const handleLogin = (e) => {
 		e.preventDefault()
@@ -15,6 +17,7 @@ export default function LoginPage() {
 		else {
 			console.log('Login clicked')
 		}
+		navigate('/search')
 	}
 
 	return (

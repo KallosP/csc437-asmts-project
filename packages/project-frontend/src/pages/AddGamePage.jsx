@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import SoccerBall from '../assets/soccer-ball.png'
+import SoccerBall from '../assets/soccer-ball.jpg'
 import BasketballBall from '../assets/basketball-ball.jpg'
+import Baseball from '../assets/baseball.jpg'
+import FootballHelmet from '../assets/football-helmet.jpg'
+import Volleyball from '../assets/volleyball.jpg'
+import Tennis from '../assets/tennis.jpg'
 import GenericSport from '../assets/generic-sport.jpg'
 
 // TODO: add all sports/images
@@ -29,8 +33,11 @@ export default function AddGamePage() {
 		setSport(selectedSport)
 		if (selectedSport === 'soccer') setImg(SoccerBall)
 		else if (selectedSport === 'basketball') setImg(BasketballBall)
-		else if (selectedSport === 'tennis') setImg(BasketballBall)
-		else if (selectedSport === 'volleyball') setImg(BasketballBall)
+		else if (selectedSport === 'baseball') setImg(Baseball)
+		else if (selectedSport === 'football') setImg(FootballHelmet)
+		else if (selectedSport === 'volleyball') setImg(Volleyball)
+		else if (selectedSport === 'tennis') setImg(Tennis)
+		else if (selectedSport === 'other') setImg(GenericSport)
 		else setImg(GenericSport)
 	}
 
@@ -97,8 +104,11 @@ export default function AddGamePage() {
 						</option>
 						<option value="soccer">Soccer</option>
 						<option value="basketball">Basketball</option>
-						<option value="tennis">Tennis</option>
+						<option value="baseball">Baseball</option>
+						<option value="football">Football</option>
 						<option value="volleyball">Volleyball</option>
+						<option value="tennis">Tennis</option>
+						<option value="other">Other</option>
 					</select>
 				</div>
 
