@@ -29,7 +29,7 @@
 	--color-hamburger: #fff;
 	--color-hamburger-hover: var(--color-blue-600);
 	/* Toggle Button */
-	--color-toggle-button: #292929;
+	--color-toggle-button: #182d4b;
 	--color-toggle-button-text: #fff;
 	--color-toggle-button-hover: var(--color-gray-800);
 	/* Input */
@@ -43,7 +43,7 @@
 
 	/* Dark Mode Colors ----- */
     /* Main Background */
-    --color-dark-background: #1f1f1f;
+    --color-dark-background: #081220;
 	/* Header */
 	--color-dark-header-background: var(--color-blue-800); 
 	--color-dark-header-text: #fff; 
@@ -53,16 +53,16 @@
 	--color-dark-link-text: var(--color-blue-500);
 	/* Button */
 	--color-dark-button-text: #fff; 
-	--color-dark-button-background: var(--color-blue-700);
-	--color-dark-button-hover: var(--color-blue-800); 
-	--color-dark-button-focus: var(--color-blue-900); 
+	--color-dark-button-background: var(--color-blue-600);
+	--color-dark-button-hover: var(--color-blue-700); 
+	--color-dark-button-focus: var(--color-blue-800); 
 	/* Checkbox */
 	--color-dark-checkbox-checked: var(--color-blue-500);
 	--color-dark-checkbox-background: var(--color-gray-700);
 	--color-dark-checkbox-border: var(--color-gray-500);
 	/* Elevated */
-	--color-dark-elevated-background: #292929; 
-	--color-dark-card-hover: var(--color-blue-900); 
+	--color-dark-elevated-background: #182d4b; 
+	--color-dark-card-hover: #1e3a61;
 	/* Hamburger */
 	--color-dark-hamburger: #fff;
 	--color-dark-hamburger-hover: var(--color-blue-900);
@@ -77,6 +77,10 @@
 	--color-dark-icon: var(--color-gray-400);
     --color-dark-svg: #fff;
 	--color-dark-divider: var(--color-gray-600);
-    --color-dark-tag: var(--color-blue-800);
+    --color-dark-tag: var(--color-blue-600);
 }
 @custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+	color-scheme: dark;
+}
