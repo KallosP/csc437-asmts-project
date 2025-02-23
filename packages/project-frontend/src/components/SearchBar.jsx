@@ -31,7 +31,7 @@ export default function SearchBar() {
 					type="search"
 					id="default-search"
 					className="block w-full p-4 ps-10 text-sm dark:text-dark-hint-text text-hint-text border-none rounded-lg dark:bg-dark-elevated-background bg-elevated-background focus:outline-none focus:border-none"
-					placeholder="Search Pickup Games..."
+					placeholder="Search Pickup Game Locations..."
 				/>
 				<button
 					onClick={handleSearch}

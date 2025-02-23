@@ -18,6 +18,7 @@ export default function SearchPage({ openLeftSidebar }) {
 			id: 1,
 			img: GenericSport,
 			title: 'Game One',
+			sport: 'Other',
 			level: 'Casual',
 			location: 'Park A',
 			description: 'Fun outdoor game!',
@@ -27,6 +28,7 @@ export default function SearchPage({ openLeftSidebar }) {
 			id: 2,
 			img: GenericSport,
 			title: 'Game Two',
+			sport: 'Other',
 			level: 'Recreational',
 			location: 'Stadium B',
 			description: 'Competitive team play!',
@@ -72,6 +74,7 @@ export default function SearchPage({ openLeftSidebar }) {
 									key={i}
 									img={game.img}
 									name={game.title}
+									sportTag={game.sport}
 									skillTag={game.level}
 									locationTag={game.location}
 									players={game.players}

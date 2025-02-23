@@ -14,6 +14,7 @@ export default function GameCard(props) {
 	}
 
 	const tags = [
+		{ title: props.sportTag, icon: null},
 		{ title: props.skillTag, icon: null},
 		{ title: props.locationTag, icon: faLocationDot},
 		{ title: props.playersTag, icon: faUser},

@@ -31,13 +31,13 @@ export default function AddGamePage() {
 
 	const handleSportSelection = (selectedSport) => {
 		setSport(selectedSport)
-		if (selectedSport === 'soccer') setImg(SoccerBall)
-		else if (selectedSport === 'basketball') setImg(BasketballBall)
-		else if (selectedSport === 'baseball') setImg(Baseball)
-		else if (selectedSport === 'football') setImg(FootballHelmet)
-		else if (selectedSport === 'volleyball') setImg(Volleyball)
-		else if (selectedSport === 'tennis') setImg(Tennis)
-		else if (selectedSport === 'other') setImg(GenericSport)
+		if (selectedSport === 'Soccer') setImg(SoccerBall)
+		else if (selectedSport === 'Basketball') setImg(BasketballBall)
+		else if (selectedSport === 'Baseball') setImg(Baseball)
+		else if (selectedSport === 'Football') setImg(FootballHelmet)
+		else if (selectedSport === 'Volleyball') setImg(Volleyball)
+		else if (selectedSport === 'Tennis') setImg(Tennis)
+		else if (selectedSport === 'Other') setImg(GenericSport)
 		else setImg(GenericSport)
 	}
 
@@ -102,13 +102,13 @@ export default function AddGamePage() {
 						<option value="" disabled>
 							Select a sport
 						</option>
-						<option value="soccer">Soccer</option>
-						<option value="basketball">Basketball</option>
-						<option value="baseball">Baseball</option>
-						<option value="football">Football</option>
-						<option value="volleyball">Volleyball</option>
-						<option value="tennis">Tennis</option>
-						<option value="other">Other</option>
+						<option value="Soccer">Soccer</option>
+						<option value="Basketball">Basketball</option>
+						<option value="Baseball">Baseball</option>
+						<option value="Football">Football</option>
+						<option value="Volleyball">Volleyball</option>
+						<option value="Tennis">Tennis</option>
+						<option value="Other">Other</option>
 					</select>
 				</div>
 
