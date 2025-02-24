@@ -29,7 +29,7 @@ export default function GameCard(props) {
 					<img
 						className="lg:w-sm w-full lg:rounded-3xl object-cover "
 						src={props.img}
-						alt="sport ball"
+						alt={`sport ${props.sport}`}
 					/>
 				</div>
 				<div className="lg:p-0 p-8 overflow-hidden">
