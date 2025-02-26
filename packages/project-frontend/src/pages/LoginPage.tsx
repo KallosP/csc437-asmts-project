@@ -37,7 +37,7 @@ export default function LoginPage() {
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 							className="w-full px-3 dark:text-dark-normal-text text-normal-text placeholder:text-hint-text py-2 border-2 border-input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-input-border-ring dark:focus:ring-dark-input-border-ring dark:border-dark-input-border "
-							placeholder="Enter game title"
+							placeholder="Enter email"
 							required
 						/>
 					</div>
@@ -50,7 +50,7 @@ export default function LoginPage() {
 							value={password}
 							required
 							onChange={(e) => setPassword(e.target.value)}
-							placeholder="Enter your password"
+							placeholder="Enter password"
 							className="w-full px-3 dark:text-dark-normal-text text-normal-text placeholder:text-hint-text py-2 border-2 border-input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-input-border-ring dark:focus:ring-dark-input-border-ring dark:border-dark-input-border "
 						/>
 					</div>

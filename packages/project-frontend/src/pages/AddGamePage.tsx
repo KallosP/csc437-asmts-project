@@ -19,7 +19,7 @@ export default function AddGamePage() {
 
 	const navigate = useNavigate()
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 		// FIXME: change how/where players is created/added to gameData
 		const players = ['John Doe', 'Jane Doe']
@@ -29,7 +29,7 @@ export default function AddGamePage() {
         navigate('/search', { state: gameData })
 	}
 
-	const handleSportSelection = (selectedSport) => {
+	const handleSportSelection = (selectedSport: string) => {
 		setSport(selectedSport)
 		if (selectedSport === 'Soccer') setImg(SoccerBall)
 		else if (selectedSport === 'Basketball') setImg(BasketballBall)
@@ -87,8 +87,8 @@ export default function AddGamePage() {
 						onChange={(e) => setDescription(e.target.value)}
 						className="w-full dark:text-dark-normal-text text-normal-text resize-none px-3 placeholder:text-hint-text py-2 border-2 border-input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-input-border-ring dark:focus:ring-dark-input-border-ring dark:border-dark-input-border "
 						placeholder="Provide a brief description of the game"
-						rows="3"
-						required></textarea>
+						required
+					/>
 				</div>
 
 				{/* Select Sport */}

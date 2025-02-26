@@ -85,6 +85,7 @@ export default function SearchPage({openLeftSidebar}: SearchPageProps) {
 									players={game.players}
 									playersTag={game.players.length}
 									description={game.description}
+									sport={game.sport}
 								/>
 							))}
 						</ul>

@@ -1,4 +1,9 @@
-export default function FilterItem(props) {
+type FilterItemProps = {
+	id: string,
+	name: string
+}
+
+export default function FilterItem(props: FilterItemProps) {
 	return (
 		<label className="c-cb flex items-center gap-2 cursor-pointer">
 			<input

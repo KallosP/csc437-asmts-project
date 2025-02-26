@@ -1,7 +1,11 @@
 import React from 'react'
 import FilterItem from './FilterItem'
 
-export default function LeftSidebar({ openLeftSidebar }) {
+interface LeftSidebarProps {
+	openLeftSidebar: boolean
+}
+
+export default function LeftSidebar({ openLeftSidebar }: LeftSidebarProps) {
 	return (
 		<aside
 			className={`absolute top-0 left-0 w-72 h-full shadow-lg bg-elevated-background dark:bg-dark-elevated-background duration-300 transition-transform ${

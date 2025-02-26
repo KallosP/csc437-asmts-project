@@ -5,7 +5,19 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import Tag from './Tag'
 
-export default function GameCard(props) {
+type GameCardProps = {
+  img: string;
+  name: string;
+  sportTag?: string;
+  skillTag?: string;
+  locationTag?: string;
+  players: string[];
+  playersTag?: number;
+  description: string;
+  sport: string;
+};
+
+export default function GameCard(props: GameCardProps) {
 	const navigate = useNavigate()
 
 	const handleClick = () => {
@@ -40,7 +52,7 @@ export default function GameCard(props) {
 					<div className="mt-2 overflow-hidden">
 						<ul className="flex flex-wrap gap-2 truncate">
 							{tags.map((tag, index) => (
-								<Tag key={index} title={tag.title} icon={tag.icon} />
+								<Tag key={index} title={tag.title || 'Err'} icon={tag.icon} />
 							))}
 						</ul>
 					</div>

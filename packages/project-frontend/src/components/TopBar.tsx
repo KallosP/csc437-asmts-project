@@ -3,7 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-export default function TopBar({ handleMenuClick, darkMode, toggleDarkMode }) {
+interface TopBarProps {
+	handleMenuClick: () => void
+	darkMode: boolean
+	toggleDarkMode: () => void
+}
+
+export default function TopBar({ handleMenuClick, darkMode, toggleDarkMode }: TopBarProps) {
 	const location = useLocation()
 	const navigate = useNavigate()
 

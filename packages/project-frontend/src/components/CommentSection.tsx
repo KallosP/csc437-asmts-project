@@ -1,9 +1,14 @@
 import { useState } from 'react'
 import LoadingSpinner from './LoadingSpinner'
 
+type Comment = {
+	text: string
+	id: number
+}
+
 export default function CommentSection() {
 	const [comment, setComment] = useState('')
-	const [comments, setComments] = useState([])
+	const [comments, setComments] = useState<Comment[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 
 	async function handlePostComment() {
