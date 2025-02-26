@@ -7,7 +7,7 @@ export default function LoginPage() {
 	const [createNewAccount, setCreateNewAccount] = useState(false)
 	const navigate = useNavigate()
 
-	const handleLogin = (e) => {
+	const handleLogin = (e: React.FormEvent) => {
 		e.preventDefault()
 		console.log(e)
 		console.log(email, password)

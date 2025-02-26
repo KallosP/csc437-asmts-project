@@ -1,6 +1,6 @@
 import GenericSport from '../assets/generic-sport.jpg'
 import { useLocation } from 'react-router-dom'
-import Tag from '../components/Tag'
+import Tag, { TagProps } from '../components/Tag'
 import CommentSection from '../components/CommentSection'
 import { useState, useEffect } from 'react'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -10,7 +10,7 @@ export default function GamePage() {
 	const [isGoing, setIsGoing] = useState(false)
 	const { tags, ...props } = location.state || []
 	const [isLoading, setIsLoading] = useState(false)
-	const [players, setPlayers] = useState(props.players)
+	const [players, setPlayers] = useState<string[]>(props.players)
 
 	function handleMarkAsGoing() {
 		setIsGoing(prevState => !prevState)
@@ -52,7 +52,7 @@ export default function GamePage() {
 							<div className="flex flex-wrap gap-2">
 								{/* Tags */}
 								<div className="flex flex-wrap gap-2">
-									{tags.map((tag, index) => (
+									{tags.map((tag: TagProps, index: number) => (
 										<Tag
 											key={index}
 											title={typeof tag.title === 'number' ? players.length : tag.title}

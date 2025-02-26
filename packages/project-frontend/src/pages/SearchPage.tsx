@@ -9,7 +9,12 @@ import GenericSport from '../assets/generic-sport.jpg'
 import LoadingSpinner from '../components/LoadingSpinner'
 
 // TODO: working search bar and filtering (keep it simple)
-export default function SearchPage({ openLeftSidebar }) {
+
+interface SearchPageProps {
+	openLeftSidebar: boolean
+}
+
+export default function SearchPage({openLeftSidebar}: SearchPageProps) {
 	const navigate = useNavigate()
 	const location = useLocation()
 
