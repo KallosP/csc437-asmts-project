@@ -3,20 +3,55 @@ import { MongoClient } from "mongodb";
 interface Image {
     src: string;
     name: string;
-    author: string;
+    author: {
+        username: string;
+        email: string;
+    };
     likes: number;
 }
 
 export default class ImageProvider {
     constructor(private readonly mongoClient: MongoClient) {}
 
-    async getAllImages(): Promise<Image[]> { // TODO #2
-        const collectionName = process.env.IMAGES_COLLECTION_NAME;
-        if (!collectionName) {
-            throw new Error("Missing IMAGES_COLLECTION_NAME from environment variables");
+    async getAllImages(): Promise<Image[]> {
+        const db = this.mongoClient.db();
+        const imagesCollectionName = process.env.IMAGES_COLLECTION_NAME;
+        const usersCollectionName = process.env.USERS_COLLECTION_NAME;
+
+        if (!imagesCollectionName || !usersCollectionName) {
+            throw new Error("Missing collection names from environment variables");
         }
 
-        const collection = this.mongoClient.db().collection<Image>(collectionName); // TODO #1
-        return collection.find().toArray(); // Without any options, will by default get all documents in the collection as an array.
+        const imagesCollection = db.collection(imagesCollectionName);
+
+        const images = await imagesCollection
+            .aggregate<Image>([ // Explicitly type the aggregation output
+                {
+                    $lookup: {
+                        from: usersCollectionName,
+                        localField: "author",
+                        foreignField: "_id",
+                        as: "authorInfo",
+                    },
+                },
+                {
+                    $unwind: "$authorInfo",
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        src: 1,
+                        name: 1,
+                        author: {
+                            username: "$authorInfo.username",
+                            email: "$authorInfo.email",
+                        },
+                        likes: 1,
+                    },
+                },
+            ])
+            .toArray();
+
+        return images;
     }
 }
