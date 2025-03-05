@@ -1,30 +1,36 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+
+const BACKEND_URL = "http://localhost:3000";
 
 export default function LoginPage() {
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [createNewAccount, setCreateNewAccount] = useState(false)
-	const navigate = useNavigate()
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [createNewAccount, setCreateNewAccount] = useState(false);
+	const navigate = useNavigate();
 
 	const handleLogin = (e: React.FormEvent) => {
-		e.preventDefault()
-		console.log(e)
-		console.log(email, password)
+		e.preventDefault();
+
 		if (createNewAccount) {
-			console.log('Create account clicked')
-		} 
-		else {
-			console.log('Login clicked')
+			// TODO: Send create account request
+			// On success, tell user it was successful and to go to login
+			// On failure, tell user it failed and why (email exists, or general failure)
+			console.log("Create account clicked");
+		} else {
+			// TODO: Send login request
+			//	On success, navigate to search page
+			// On failure, tell user it failed and why
+			console.log("Login clicked");
 		}
-		navigate('/search')
-	}
+		navigate("/search");
+	};
 
 	return (
 		<div className="flex self-center h-full justify-center items-center w-full p-4">
 			<div className="w-full mb-8 max-w-lg rounded-lg bg-elevated-background dark:bg-dark-elevated-background p-8 shadow-lg">
 				<h2 className="mb-6 text-center text-2xl text-normal-text dark:text-dark-normal-text font-semibold">
-					{createNewAccount ? 'Create an account' : 'Login'}
+					{createNewAccount ? "Create an account" : "Login"}
 				</h2>
 				<form onSubmit={handleLogin} className="space-y-4">
 					{/* Email Input */}
@@ -54,20 +60,22 @@ export default function LoginPage() {
 							className="w-full px-3 dark:text-dark-normal-text text-normal-text placeholder:text-hint-text py-2 border-2 border-input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-input-border-ring dark:focus:ring-dark-input-border-ring dark:border-dark-input-border "
 						/>
 					</div>
-					{// TODO: different action depending on login or create button
-					!createNewAccount ? (
-						<button
-							className="w-full text-button-text dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 "
-							type="submit">
-							Login
-						</button>
-					) : (
-						<button
-							className="w-full text-button-text dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 "
-							type="submit">
-							Create Account
-						</button>
-					)}
+					{
+						// TODO: different action depending on login or create button
+						!createNewAccount ? (
+							<button
+								className="w-full text-button-text dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 "
+								type="submit">
+								Login
+							</button>
+						) : (
+							<button
+								className="w-full text-button-text dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 "
+								type="submit">
+								Create Account
+							</button>
+						)
+					}
 				</form>
 				{!createNewAccount ? (
 					<p className="mt-4 text-center text-sm text-normal-text dark:text-dark-normal-text">
@@ -89,5 +97,5 @@ export default function LoginPage() {
 				)}
 			</div>
 		</div>
-	)
+	);
 }
