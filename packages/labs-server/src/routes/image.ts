@@ -18,9 +18,9 @@ export function registerImageRoutes(app: express.Application, mongoClient: Mongo
 
     app.patch("/api/images/:id", (req: Request, res: Response) => {
         // FIXME: should this be author?
-        const author = req.body.name;
+        const name = req.body.name;
 
-        if (!author) {
+        if (!name) {
             res.status(400).send({
                 error: "Bad request",
                 message: "Missing name property",
