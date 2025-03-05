@@ -17,7 +17,6 @@ export function registerImageRoutes(app: express.Application, mongoClient: Mongo
 	});
 
     app.patch("/api/images/:id", (req: Request, res: Response) => {
-        // FIXME: should this be author?
         const name = req.body.name;
 
         if (!name) {

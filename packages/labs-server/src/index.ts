@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { MongoClient } from "mongodb";
 import { registerImageRoutes } from "./routes/image";
+import cors from "cors";
 
 dotenv.config(); // Read the .env file in the current working directory, and load values into process.env.
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ async function setUpServer() {
 
 	// This is middleware allowing for JSON parsing
 	app.use(express.json());
+	app.use(cors());
 
 	app.use(express.static(staticDir));
 

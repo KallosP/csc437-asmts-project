@@ -5,6 +5,7 @@ interface Image {
     src: string;
     name: string;
     author: {
+        _id: ObjectId;
         username: string;
         email: string;
     };
@@ -60,10 +61,11 @@ export class ImageProvider {
             },
             {
                 $project: {
-                    _id: 0,
+                    _id: 1,
                     src: 1,
                     name: 1,
                     author: {
+                        _id: "$authorInfo._id",
                         username: "$authorInfo.username",
                         email: "$authorInfo.email",
                     },
