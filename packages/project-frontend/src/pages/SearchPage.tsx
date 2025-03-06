@@ -1,65 +1,57 @@
-import React, { useEffect } from 'react'
-import GameCard from '../components/GameCard'
-import SearchBar from '../components/SearchBar'
-import LeftSidebar from '../components/LeftSidebar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate, useLocation } from 'react-router-dom'
-import GenericSport from '../assets/generic-sport.jpg'
-import LoadingSpinner from '../components/LoadingSpinner'
+import React, {useEffect} from "react";
+import GameCard from "../components/GameCard";
+import SearchBar from "../components/SearchBar";
+import LeftSidebar from "../components/LeftSidebar";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {useNavigate, useLocation} from "react-router-dom";
+import GenericSport from "../assets/generic-sport.jpg";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 // TODO: working search bar and filtering (keep it simple)
 
 interface SearchPageProps {
-	openLeftSidebar: boolean
+	openLeftSidebar: boolean;
 }
 
 export default function SearchPage({openLeftSidebar}: SearchPageProps) {
-	const navigate = useNavigate()
-	const location = useLocation()
+	const navigate = useNavigate();
+	const location = useLocation();
+	const token = location.state?.token;
+	const user = location.state?.userId;
 
+	console.log("Location:", location.state);
+	console.log("Token:", token);
+	console.log("User:", user);
+
+	// TODO: fetch from backend (for this user)
 	const [games, setGames] = React.useState([
 		{
 			id: 1,
 			img: GenericSport,
-			title: 'Game One',
-			sport: 'Other',
-			level: 'Casual',
-			location: 'Park A',
-			description: 'Fun outdoor game!',
-			players: ['John Doe', 'Jane Doe']
+			title: "Game One",
+			sport: "Other",
+			level: "Casual",
+			location: "Park A",
+			description: "Fun outdoor game!",
+			players: ["John Doe", "Jane Doe"]
 		},
 		{
 			id: 2,
 			img: GenericSport,
-			title: 'Game Two',
-			sport: 'Other',
-			level: 'Recreational',
-			location: 'Stadium B',
-			description: 'Competitive team play!',
-			players: ['Bill', 'Bob', 'Charlie', 'Dean']
+			title: "Game Two",
+			sport: "Other",
+			level: "Recreational",
+			location: "Stadium B",
+			description: "Competitive team play!",
+			players: ["Bill", "Bob", "Charlie", "Dean"]
 		}
-	])
-	const [loading, setLoading] = React.useState(true) // Loading state
-	const gameData = location.state;
+	]);
+	const [loading, setLoading] = React.useState(false); // Loading state
 
-	// TEMPORARY: Simulating fetching games from a backend
 	useEffect(() => {
-		const fetchGames = async () => {
-			setLoading(true)
-			await new Promise((resolve) => setTimeout(resolve, 1000))
-			setLoading(false)
-		}
-
-		fetchGames()
-	}, [games])
-
-	// TEMPORARY
-	useEffect(() => {
-		if (gameData) {
-			setGames([...games, gameData])
-		}
-	}, [gameData, navigate, location.pathname])
+		// Handle
+	}, [games]);
 
 	return (
 		<>
@@ -93,11 +85,11 @@ export default function SearchPage({openLeftSidebar}: SearchPageProps) {
 				</div>
 				{/* Add Game */}
 				<button
-					onClick={() => navigate('/add-game')}
+					onClick={() => navigate("/add-game")}
 					className="fixed cursor-pointer transition-all duration-300 lg:bottom-10 lg:right-10 bottom-5 right-5 bg-button-background hover:bg-button-hover focus:bg-button-focus dark:bg-dark-button-background dark:hover:bg-dark-button-hover dark:focus:bg-dark-button-focus text-button-text font-bold rounded-full py-4 px-4 rounded">
 					<FontAwesomeIcon icon={faPlus} className="w-6" />
 				</button>
 			</div>
 		</>
-	)
+	);
 }

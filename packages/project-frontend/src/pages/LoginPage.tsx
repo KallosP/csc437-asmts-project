@@ -7,23 +7,87 @@ export default function LoginPage() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [createNewAccount, setCreateNewAccount] = useState(false);
+	const [accountCreated, setAccountCreated] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
-	const handleLogin = (e: React.FormEvent) => {
-		e.preventDefault();
-
-		if (createNewAccount) {
-			// TODO: Send create account request
-			// On success, tell user it was successful and to go to login
-			// On failure, tell user it failed and why (email exists, or general failure)
-			console.log("Create account clicked");
-		} else {
-			// TODO: Send login request
-			//	On success, navigate to search page
-			// On failure, tell user it failed and why
-			console.log("Login clicked");
+	async function createUser(creds: {email: string; password: string}) {
+		try {
+			const response = await fetch(`${BACKEND_URL}/api/user/create`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(creds)
+			});
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				const errorData = await response.json();
+				throw new Error(errorData.message || "Account creation failed");
+			}
+		} catch (e) {
+			console.log("Error creating user:", e);
+			throw new Error("Account creation failed");
 		}
-		navigate("/search");
+	}
+
+	async function loginUser(creds: {email: string; password: string}) {
+		try {
+			const response = await fetch(`${BACKEND_URL}/api/user/login`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(creds)
+			});
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			} else {
+				const errorData = await response.json();
+				throw new Error(errorData.message || "Account creation failed");
+			}
+		} catch (e) {
+			console.log("Error logging in user:", e);
+			throw new Error("Login failed");
+		}
+	}
+
+	const handleLogin = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setLoading(true);
+
+		try {
+			if (createNewAccount) {
+				console.log("Create account clicked");
+				await createUser({email, password});
+				setAccountCreated(true);
+			} else {
+				const data = await loginUser({email, password});
+				console.log("TOKEN: ", data.token);
+				console.log("USER ID: ", data.userId);
+				// README: 
+				//		if site becomes unresponsive for some users after navigating to search,
+				//		it's because of chrome's unsafe password alert getting bugged. Clear
+				//		cache/cookies and exit out of chrome completely and retry. Try on other
+				//		browsers if issue continues.
+				navigate("/search", {
+					state: {
+						token: data.token,
+						userId: data.userId
+					}
+				})
+			}
+		} catch (e) {
+			console.error(e);
+			if (e instanceof Error) {
+				alert(e.message);
+			}
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (
@@ -77,6 +141,11 @@ export default function LoginPage() {
 						)
 					}
 				</form>
+				{accountCreated && createNewAccount && (
+					<p className="mt-4 text-center font-bold text-sm text-normal-text dark:text-dark-normal-text">
+						{loading ? "Creating account..." : "Account created! You can now log in."}
+					</p>
+				)}
 				{!createNewAccount ? (
 					<p className="mt-4 text-center text-sm text-normal-text dark:text-dark-normal-text">
 						Don't have an account?

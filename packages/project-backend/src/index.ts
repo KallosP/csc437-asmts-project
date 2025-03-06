@@ -2,6 +2,7 @@ import express, {Request, Response} from "express";
 import dotenv from "dotenv";
 import path from "path";
 import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 import { registerUserRoutes } from "./routes/user";
 import cors from "cors";
 
@@ -16,8 +17,7 @@ async function setUpServer() {
 
 	console.log("Attempting Mongo connection at " + connectionStringRedacted);
 
-	const mongoClient = await MongoClient.connect(connectionString);
-	const collectionInfos = await mongoClient.db().listCollections().toArray();
+	await mongoose.connect(connectionString); 
 
 	const app = express();
 
@@ -31,7 +31,7 @@ async function setUpServer() {
 		res.send("Hello, World");
 	});
 
-	registerUserRoutes(app, mongoClient);
+	registerUserRoutes(app);
 
 	app.get("*", (req: Request, res: Response) => {
 		console.log("none of the routes above me were matched");
