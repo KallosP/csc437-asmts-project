@@ -1,0 +1,63 @@
+import express, {Request, Response, NextFunction} from "express";
+import {GameProvider} from "../GameProvider";
+import {ObjectId} from "mongodb";
+import User from "../models/users"; // Adjust path as needed
+
+export function registerGameRoutes(app: express.Application) {
+	const gameProvider = new GameProvider();
+
+	// Create Game
+	app.post("/api/game", async (req: Request, res: Response): Promise<void> => {
+		try {
+			const {title, sport, level, location, description, players, img, organizer} = req.body;
+
+			// Fetch complete user documents for the players array
+			const playerDocs = await Promise.all(
+				players.map(async (playerId: string) => {
+					const userDoc = await User.findById(playerId);
+					if (!userDoc) {
+						throw new Error(`User with id ${playerId} not found`);
+					}
+					return userDoc;
+				})
+			);
+
+			// Fetch complete document for the organizer
+			const organizerDoc = await User.findById(organizer);
+			if (!organizerDoc) {
+				res.status(404).json({message: "Organizer not found"});
+                return
+			}
+
+			// Use the embedded documents instead of raw IDs
+			const game = await gameProvider.addGame(
+				title,
+				sport,
+				level,
+				location,
+				description,
+				playerDocs, // Array of embedded player (user) documents
+				img,
+				organizerDoc // Embedded organizer (user) document
+			);
+
+			res.status(200).send(game);
+		} catch (err) {
+			console.error("FAILED TO CREATE GAME:", err);
+			res.status(500).send(err);
+		}
+	});
+
+	// Get Game
+	app.get("/api/game/:id", (req: Request, res: Response) => {
+		const gameId = req.params.id;
+		gameProvider
+			.findGame(gameId)
+			.then((game) => {
+				res.send(game);
+			})
+			.catch((err) => {
+				res.status(500).send(err);
+			});
+	});
+}

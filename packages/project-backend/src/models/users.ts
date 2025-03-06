@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
+import { Document } from "mongoose";
 
-const UsersSchema = new mongoose.Schema(
+export interface UsersType extends Document {
+	username: string;
+	hashedPassword: string;
+}
+
+export const UsersSchema = new mongoose.Schema(
 	{
 		username: {
 			type: String,

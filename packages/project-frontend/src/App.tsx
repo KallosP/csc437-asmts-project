@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 function App() {
+	const INVALID_TOKEN = "INVALID_TOKEN"
 	const [openLeftSidebar, setOpenLeftSidebar] = useState(false)
 	const [darkMode, setDarkMode] = useState(false)
 
@@ -19,6 +20,17 @@ function App() {
 	function toggleDarkMode() {
 		setDarkMode(!darkMode)
 		localStorage.setItem('darkMode', JSON.stringify(!darkMode))
+	}
+
+	function addAuthHeader(token: string, otherHeaders = {}) {
+		if (token === INVALID_TOKEN) {
+			return otherHeaders;
+		} else {
+			return {
+				...otherHeaders,
+				Authorization: `Bearer ${token}`
+			};
+		}
 	}
 
 	return (
@@ -36,7 +48,7 @@ function App() {
 					<Route path="/" element={<LoginPage />} />
 					<Route path="/search" element={<SearchPage openLeftSidebar={openLeftSidebar} />} />
 					<Route path="/view-game" element={<GamePage />} />
-					<Route path="/add-game" element={<AddGamePage />} />
+					<Route path="/add-game" element={<AddGamePage addAuthHeader={addAuthHeader} />} />
 				</Routes>
 			</div>
 		</Router>

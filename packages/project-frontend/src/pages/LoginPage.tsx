@@ -1,19 +1,17 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-
-const BACKEND_URL = "http://localhost:3000";
+import BACKEND_URL from "../constants";
 
 export default function LoginPage() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [createNewAccount, setCreateNewAccount] = useState(false);
 	const [accountCreated, setAccountCreated] = useState(false);
-	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
 	async function createUser(creds: {email: string; password: string}) {
 		try {
-			const response = await fetch(`${BACKEND_URL}/api/user/create`, {
+			const response = await fetch(`${BACKEND_URL}/api/user`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -57,7 +55,6 @@ export default function LoginPage() {
 
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault();
-		setLoading(true);
 
 		try {
 			if (createNewAccount) {
@@ -76,7 +73,7 @@ export default function LoginPage() {
 				navigate("/search", {
 					state: {
 						token: data.token,
-						userId: data.userId
+						currUserId: data.userId
 					}
 				})
 			}
@@ -85,9 +82,7 @@ export default function LoginPage() {
 			if (e instanceof Error) {
 				alert(e.message);
 			}
-		} finally {
-			setLoading(false);
-		}
+		} 
 	};
 
 	return (
@@ -143,7 +138,7 @@ export default function LoginPage() {
 				</form>
 				{accountCreated && createNewAccount && (
 					<p className="mt-4 text-center font-bold text-sm text-normal-text dark:text-dark-normal-text">
-						{loading ? "Creating account..." : "Account created! You can now log in."}
+						Account created! You can now log in.
 					</p>
 				)}
 				{!createNewAccount ? (

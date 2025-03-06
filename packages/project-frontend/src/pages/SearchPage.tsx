@@ -18,11 +18,12 @@ export default function SearchPage({openLeftSidebar}: SearchPageProps) {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const token = location.state?.token;
-	const user = location.state?.userId;
+	const currUserId = location.state?.currUserId;
+	const gameData = location.state?.gameData;
 
 	console.log("Location:", location.state);
 	console.log("Token:", token);
-	console.log("User:", user);
+	console.log("User:", currUserId);
 
 	// TODO: fetch from backend (for this user)
 	const [games, setGames] = React.useState([
@@ -50,8 +51,12 @@ export default function SearchPage({openLeftSidebar}: SearchPageProps) {
 	const [loading, setLoading] = React.useState(false); // Loading state
 
 	useEffect(() => {
-		// Handle
-	}, [games]);
+		// TODO: fetch all games from backend
+		if(gameData){
+			// Temporary
+			setGames([...games, gameData])
+		}
+	}, [gameData]);
 
 	return (
 		<>
@@ -85,7 +90,7 @@ export default function SearchPage({openLeftSidebar}: SearchPageProps) {
 				</div>
 				{/* Add Game */}
 				<button
-					onClick={() => navigate("/add-game")}
+					onClick={() => navigate("/add-game", { state: {token, currUserId} })}
 					className="fixed cursor-pointer transition-all duration-300 lg:bottom-10 lg:right-10 bottom-5 right-5 bg-button-background hover:bg-button-hover focus:bg-button-focus dark:bg-dark-button-background dark:hover:bg-dark-button-hover dark:focus:bg-dark-button-focus text-button-text font-bold rounded-full py-4 px-4 rounded">
 					<FontAwesomeIcon icon={faPlus} className="w-6" />
 				</button>

@@ -40,7 +40,7 @@ export function registerUserRoutes(app: express.Application) {
 	const userProvider = new UserProvider();
 
 	// Create User - Account Creation
-	app.post("/api/user/create", (req: Request, res: Response) => {
+	app.post("/api/user", (req: Request, res: Response) => {
 		const username = req.body.email;
 		const pwd = req.body.password;
 
@@ -106,5 +106,9 @@ export function registerUserRoutes(app: express.Application) {
 			.catch(() => {
 				res.status(400).send("Something went wrong with finding user...");
 			});
+	});
+
+	app.get("/api/user", (req: Request, res: Response) => {
+
 	});
 }

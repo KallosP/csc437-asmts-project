@@ -4,6 +4,7 @@ import path from "path";
 import { MongoClient } from "mongodb";
 import mongoose from "mongoose";
 import { registerUserRoutes } from "./routes/user";
+import { registerGameRoutes } from "./routes/game";
 import cors from "cors";
 
 dotenv.config(); // Read the .env file in the current working directory, and load values into process.env.
@@ -32,6 +33,7 @@ async function setUpServer() {
 	});
 
 	registerUserRoutes(app);
+	registerGameRoutes(app);
 
 	app.get("*", (req: Request, res: Response) => {
 		console.log("none of the routes above me were matched");
