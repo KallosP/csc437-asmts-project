@@ -31,13 +31,13 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 						...addAuthHeader(token)
 					},
 					body: JSON.stringify({playerId: currUserId})
-				})
+				});
 				if (response.ok) {
 					console.log("Player removed from game");
-					setIsGoing(false)
+					setIsGoing(false);
 					const data = await response.json();
 					setPlayers(players.filter((player) => player !== data.username));
-					return data
+					return data;
 				} else {
 					console.log("Failed to remove player to game");
 					throw new Error("Failed to remove player to game");
@@ -51,12 +51,13 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 						...addAuthHeader(token)
 					},
 					body: JSON.stringify({playerId: currUserId})
-				})
+				});
 				if (response.ok) {
 					console.log("Player added to game");
 					setIsGoing(true);
-					const data = await response.json();
-					setPlayers([...players, data.players.find((player: any) => player._id === currUserId).username]);
+					// Add player to frontend
+					const player = await response.json();
+					setPlayers([...players, player.username]);
 				} else {
 					console.log("Failed to add player to game");
 					throw new Error("Failed to add player to game");
@@ -74,9 +75,36 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 	//		  was for frontend testing purposes. prob have to change
 	//		  logic for backend
 	useEffect(() => {
-		/*if (isGoing) {
-			} else {
-			}*/
+		const getGameData = async () => {
+			try {
+				const response = await fetch(`${BACKEND_URL}/api/game/${props._id}`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						...addAuthHeader(token)
+					}
+				});
+				if (response.ok) {
+					console.log("Got game data");
+					const data = await response.json();
+					data.players.map((player: any) => {
+						// Check if current user marked themselves as going
+						if (player._id === currUserId) {
+							setIsGoing(true);
+						}
+						// Add fetched player to players array if not already in it
+						if (!players.includes(player.username)) {
+							setPlayers([...players, player.username]);
+						}
+					});
+				}
+			} catch (e) {
+				console.log("Error getting game data:", e);
+				alert("Something went wrong viewing game...");
+			}
+		};
+
+		getGameData();
 	}, []);
 
 	return (
