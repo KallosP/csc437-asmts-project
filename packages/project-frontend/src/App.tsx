@@ -5,9 +5,10 @@ import LoginPage from "./pages/LoginPage";
 import AddGamePage from "./pages/AddGamePage";
 import GamePage from "./pages/GamePage";
 import {useState} from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
 import BACKEND_URL from "./constants";
-import {TokenProvider, INVALID_TOKEN} from "./TokenContext";
+import {INVALID_TOKEN} from "./TokenContext";
+import {useToken} from "./TokenContext";
 
 function App() {
 	const [openLeftSidebar, setOpenLeftSidebar] = useState(false);
@@ -17,6 +18,8 @@ function App() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [createNewAccount, setCreateNewAccount] = useState(false);
+
+	const {token, currUserId} = useToken();
 
 	function handleMenuClick() {
 		setOpenLeftSidebar(!openLeftSidebar);
@@ -84,47 +87,52 @@ function App() {
 	}
 
 	return (
-		<TokenProvider>
-			<Router>
-				<div
-					className={`flex ${
-						localStorage.getItem("darkMode") === "true" ? "dark" : ""
-					} flex-col h-screen bg-background dark:bg-dark-background duration-300 transition-all overflow-y-scroll`}>
-					<TopBar
-						handleMenuClick={() => handleMenuClick()}
-						darkMode={darkMode}
-						toggleDarkMode={() => toggleDarkMode()}
+		<Router>
+			<div
+				className={`flex ${
+					localStorage.getItem("darkMode") === "true" ? "dark" : ""
+				} flex-col h-screen bg-background dark:bg-dark-background duration-300 transition-all overflow-y-scroll`}>
+				<TopBar
+					handleMenuClick={() => handleMenuClick()}
+					darkMode={darkMode}
+					toggleDarkMode={() => toggleDarkMode()}
+				/>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<LoginPage
+								email={email}
+								setEmail={setEmail}
+								password={password}
+								setPassword={setPassword}
+								createNewAccount={createNewAccount}
+								setAccountCreated={setAccountCreated}
+								setCreateNewAccount={setCreateNewAccount}
+								loginUser={loginUser}
+								createUser={createUser}
+								accountCreated={accountCreated}
+							/>
+						}
 					/>
-					<Routes>
-						<Route
-							path="/"
-							element={
-								<LoginPage
-									email={email}
-									setEmail={setEmail}
-									password={password}
-									setPassword={setPassword}
-									createNewAccount={createNewAccount}
-									setAccountCreated={setAccountCreated}
-									setCreateNewAccount={setCreateNewAccount}
-									loginUser={loginUser}
-									createUser={createUser}
-									accountCreated={accountCreated}
-								/>
-							}
-						/>
-						<Route
-							path="/search"
-							element={
-								<SearchPage openLeftSidebar={openLeftSidebar} addAuthHeader={addAuthHeader} />
-							}
-						/>
-						<Route path="/view-game" element={<GamePage addAuthHeader={addAuthHeader} />} />
-						<Route path="/add-game" element={<AddGamePage addAuthHeader={addAuthHeader} />} />
-					</Routes>
-				</div>
-			</Router>
-		</TokenProvider>
+					{token === INVALID_TOKEN ? (
+						<Route path="*" element={<Navigate to="/" replace />} />
+					) : (
+						/* Protected Routes */
+						<>
+							<Route
+								path="/search"
+								element={
+									<SearchPage openLeftSidebar={openLeftSidebar} addAuthHeader={addAuthHeader} />
+								}
+							/>
+							<Route path="/view-game" element={<GamePage addAuthHeader={addAuthHeader} />} />
+							<Route path="/add-game" element={<AddGamePage addAuthHeader={addAuthHeader} />} />
+						</>
+					)}
+				</Routes>
+			</div>
+		</Router>
 	);
 }
 
