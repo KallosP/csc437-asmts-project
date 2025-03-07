@@ -23,7 +23,6 @@ export default function GameCard(props: GameType) {
 	const skillTag = props.level;
 	const locationTag = props.location;
 	const playersTag = props.players.length || 0;
-	console.log("PLAYERSTAG:", playersTag);
 
 	const handleClick = () => {
 		console.log("Game clicked");
@@ -57,7 +56,6 @@ export default function GameCard(props: GameType) {
 					<div className="mt-2 overflow-hidden">
 						<ul className="flex flex-wrap gap-2 truncate">
 							{tags.map((tag, index) => (
-								console.log("TAG:", tag),
 								<Tag key={index} title={tag.title ?? "Err"} icon={tag.icon} />
 							))}
 						</ul>

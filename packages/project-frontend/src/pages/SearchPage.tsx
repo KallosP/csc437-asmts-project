@@ -23,13 +23,10 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 	const location = useLocation();
 	const {token, currUserId} = useToken();
 
-	console.log("Location:", location.state);
-	console.log("Token:", token);
-	console.log("User:", currUserId);
-
-	// TODO: fetch from backend (for this user)
 	const [games, setGames] = React.useState<GameType[]>([]);
 	const [loading, setLoading] = React.useState(true); // Loading state
+
+	const [searchTerm, setSearchTerm] = React.useState("");
 
 	useEffect(() => {
 		try {
@@ -67,7 +64,7 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 				<LeftSidebar openLeftSidebar={openLeftSidebar} />
 				<div className="flex flex-1 flex-col px-5 justify-start">
 					<div className="mt-5">
-						<SearchBar />
+						<SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 					</div>
 					{/* Game List */}
 					{loading ? (
@@ -76,7 +73,6 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 						<ul className="flex flex-col w-full gap-10 mb-10 items-center mt-5">
 							{games.map(
 								(game) => (
-									console.log("TEsT", game),
 									(
 										<GameCard
 											key={game._id}
