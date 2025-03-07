@@ -4,7 +4,6 @@ import LeftSidebar from "../components/LeftSidebar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate, useLocation} from "react-router-dom";
-import GenericSport from "../assets/generic-sport.jpg";
 import LoadingSpinner from "../components/LoadingSpinner";
 import BACKEND_URL from "../constants";
 import {GameType} from "../components/GameCard";
@@ -27,6 +26,7 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 	const [loading, setLoading] = React.useState(true); // Loading state
 
 	const [searchTerm, setSearchTerm] = React.useState("");
+	const [filters, setFilters] = React.useState<string[]>([]);
 
 	useEffect(() => {
 		try {
@@ -61,7 +61,7 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 	return (
 		<>
 			<div className="flex relative flex-1 bg-background dark:bg-dark-background">
-				<LeftSidebar openLeftSidebar={openLeftSidebar} />
+				<LeftSidebar openLeftSidebar={openLeftSidebar} filters={filters} setFilters={setFilters} />
 				<div className="flex flex-1 flex-col px-5 justify-start">
 					<div className="mt-5">
 						<SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -70,7 +70,7 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 					{loading ? (
 						<LoadingSpinner />
 					) : games.length > 0 ? (
-						<GameList input={searchTerm} games={games} />
+						<GameList input={searchTerm} games={games} filters={filters} />
 					) : (
 						<p className="text-normal-text dark:text-dark-normal-text text-center mt-5">
 							No games found
