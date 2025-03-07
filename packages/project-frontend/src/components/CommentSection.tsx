@@ -1,24 +1,51 @@
 import { useState } from 'react'
 import LoadingSpinner from './LoadingSpinner'
+import BACKEND_URL from '../constants'
 
-type Comment = {
-	text: string
-	id: number
+interface CommentSectionProps {
+	addAuthHeader: (token: string) => Record<string, string>
+	currUserId: string
+	token: string
+	gameId: string
+	comments: string[]
+	setComments: (comments: string[]) => void
 }
 
-export default function CommentSection() {
+export default function CommentSection({comments, setComments, addAuthHeader, currUserId, token, gameId }: CommentSectionProps) {
 	const [comment, setComment] = useState('')
-	const [comments, setComments] = useState<Comment[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 
 	async function handlePostComment() {
 		// Ignore empty comments
 		if (comment.trim() === '') return
-		setIsLoading(true)
-		await new Promise((resolve) => setTimeout(resolve, 1000))
-		setIsLoading(false)
-		// Add new comment at the top
-		setComments([{ text: comment, id: Date.now() }, ...comments])
+
+		try{
+			setIsLoading(true)
+			const response = await fetch (`${BACKEND_URL}/api/comment`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					...addAuthHeader(token)
+				},
+				body: JSON.stringify({
+					content: comment,
+					userId: currUserId,
+					gameId: gameId
+				})
+			})
+
+			if (response.ok) {
+				const data = await response.json()
+				// Add new comment at the top
+				setComments([data.content, ...comments])
+			}
+		}
+		catch (e){
+			console.log("Error posting comment:", e)
+			alert("Something went wrong posting comment...")
+		} finally {
+			setIsLoading(false)
+		}
 		// Clear input field
 		setComment('')
 	}
@@ -52,7 +79,7 @@ export default function CommentSection() {
 						<li
 							key={index}
 							className="p-4 rounded-lg h-auto text-wrap break-words bg-elevated-background dark:bg-dark-elevated-background">
-							<p className="dark:text-dark-normal-text text-normal-text text-lg">{c.text}</p>
+							<p className="dark:text-dark-normal-text text-normal-text text-lg">{c}</p>
 						</li>
 					))}
 				</ul>

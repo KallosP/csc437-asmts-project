@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Document } from "mongoose";
 import { UsersSchema, /*UsersType*/ } from "./users";
+import { CommentsSchema } from './comments';
 
 /*export interface GamesType extends Document {
     title: string;
@@ -51,7 +52,8 @@ const GamesSchema = new mongoose.Schema(
             required: true,
             trim: true    
         },
-        organizer: UsersSchema
+        organizer: UsersSchema,
+        comments: [CommentsSchema]
 	},
 	{collection: "games"}
 );

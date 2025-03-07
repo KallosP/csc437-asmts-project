@@ -18,6 +18,7 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [players, setPlayers] = useState<string[]>(props.players);
 	const {token, currUserId} = useToken();
+	const [comments, setComments] = useState<string[]>([]);
 
 	async function handleMarkAsGoing() {
 		try {
@@ -87,6 +88,7 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 				if (response.ok) {
 					console.log("Got game data");
 					const data = await response.json();
+					console.log(data);
 					data.players.map((player: any) => {
 						// Check if current user marked themselves as going
 						if (player._id === currUserId) {
@@ -97,6 +99,8 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 							setPlayers([...players, player.username]);
 						}
 					});
+					const newComments = data.comments.map((comment: any) => comment.content);
+					setComments(newComments);
 				}
 			} catch (e) {
 				console.log("Error getting game data:", e);
@@ -174,7 +178,14 @@ export default function GamePage({addAuthHeader}: GamePageProps) {
 					</div>
 				</div>
 				{/* Comment Section */}
-				<CommentSection />
+				<CommentSection
+					comments={comments}
+					setComments={setComments}
+					gameId={props._id}
+					currUserId={currUserId}
+					token={token}
+					addAuthHeader={addAuthHeader}
+				/>
 			</div>
 		</div>
 	);
