@@ -1,5 +1,5 @@
 // TokenContext.tsx
-import React, {createContext, useContext, useState, ReactNode} from "react";
+import React, {createContext, useContext, useState, ReactNode, useEffect} from "react";
 
 interface TokenContextType {
 	token: string;
@@ -26,6 +26,19 @@ export const TokenProvider = ({children}: {children: ReactNode}) => {
 	const [currUserId, setCurrUserId] = useState<string>(
 		localStorage.getItem("currUserId") || INVALID_USER
 	);
+
+	// Whenever the token or user ID changes, save them to localStorage
+	useEffect(() => {
+		if (token) {
+			localStorage.setItem("token", token);
+		}
+	}, [token]);
+
+	useEffect(() => {
+		if (currUserId) {
+			localStorage.setItem("currUserId", currUserId);
+		}
+	}, [currUserId]);
 
 	return (
 		<TokenContext.Provider value={{token, setToken, currUserId, setCurrUserId}}>

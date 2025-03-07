@@ -31,7 +31,7 @@ export default function AddGamePage({addAuthHeader}: AddGamePageProps) {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		// FIXME: change how/where players is created/added to gameData
-		const players = [currUserId];
+		const players: string[] = [];
 		const gameData = {title, gameLocation, description, sport, level, img, players};
 
 		try {
