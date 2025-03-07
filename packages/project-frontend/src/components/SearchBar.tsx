@@ -7,7 +7,6 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({searchTerm, setSearchTerm}: SearchBarProps) {
-	// https://dev.to/salehmubashar/search-bar-in-react-js-545l
 	let inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		//convert input text to lower case
 	

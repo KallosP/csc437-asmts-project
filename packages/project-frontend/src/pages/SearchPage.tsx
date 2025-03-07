@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import GameCard from "../components/GameCard";
 import SearchBar from "../components/SearchBar";
 import LeftSidebar from "../components/LeftSidebar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -10,6 +9,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import BACKEND_URL from "../constants";
 import {GameType} from "../components/GameCard";
 import {useToken} from "../TokenContext";
+import GameList from "../components/GameList";
 
 // TODO: working search bar and filtering (keep it simple)
 
@@ -70,26 +70,7 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 					{loading ? (
 						<LoadingSpinner />
 					) : games.length > 0 ? (
-						<ul className="flex flex-col w-full gap-10 mb-10 items-center mt-5">
-							{games.map(
-								(game) => (
-									(
-										<GameCard
-											key={game._id}
-											_id={game._id}
-											img={game.img}
-											title={game.title}
-											level={game.level}
-											location={game.location}
-											players={game.players}
-											description={game.description}
-											sport={game.sport}
-											organizer={game.organizer}
-										/>
-									)
-								)
-							)}
-						</ul>
+						<GameList input={searchTerm} games={games} />
 					) : (
 						<p className="text-normal-text dark:text-dark-normal-text text-center mt-5">
 							No games found
