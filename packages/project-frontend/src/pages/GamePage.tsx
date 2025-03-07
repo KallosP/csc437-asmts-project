@@ -1,39 +1,41 @@
-import GenericSport from '../assets/generic-sport.jpg'
-import { useLocation } from 'react-router-dom'
-import Tag, { TagProps } from '../components/Tag'
-import CommentSection from '../components/CommentSection'
-import { useState, useEffect } from 'react'
-import LoadingSpinner from '../components/LoadingSpinner'
+import GenericSport from "../assets/generic-sport.jpg";
+import {useLocation} from "react-router-dom";
+import Tag, {TagProps} from "../components/Tag";
+import CommentSection from "../components/CommentSection";
+import {useState, useEffect} from "react";
+import LoadingSpinner from "../components/LoadingSpinner";
+import {useToken} from "../TokenContext";
 
 export default function GamePage() {
-	const location = useLocation()
-	const [isGoing, setIsGoing] = useState(false)
-	const { tags, ...props } = location.state || []
-	const [isLoading, setIsLoading] = useState(false)
-	const [players, setPlayers] = useState<string[]>(props.players)
+	const location = useLocation();
+	const [isGoing, setIsGoing] = useState(false);
+	const {tags, ...props} = location.state || [];
+	const [isLoading, setIsLoading] = useState(false);
+	const [players, setPlayers] = useState<string[]>(props.players);
+	const {token, currUserId} = useToken();
 
 	function handleMarkAsGoing() {
-		setIsGoing(prevState => !prevState)
+		setIsGoing((prevState) => !prevState);
 	}
 
-	// FIXME: the use of the players state variable in rendering 
+	// FIXME: the use of the players state variable in rendering
 	//		  was for frontend testing purposes. prob have to change
 	//		  logic for backend
 	useEffect(() => {
 		const updatePlayers = async () => {
-			if(isLoading) return
-			setIsLoading(true)
-			await new Promise((resolve) => setTimeout(resolve, 1000))
+			if (isLoading) return;
+			setIsLoading(true);
+			await new Promise((resolve) => setTimeout(resolve, 1000));
 			// TODO: add backend operations here (fetch, update, etc.)
 			if (isGoing) {
-				setPlayers([...players, 'Foo bar'])
+				setPlayers([...players, "Foo bar"]);
 			} else {
-				setPlayers(players.filter(player => player !== 'Foo bar'))
+				setPlayers(players.filter((player) => player !== "Foo bar"));
 			}
-			setIsLoading(false)
-		}
-		updatePlayers()
-	}, [isGoing])
+			setIsLoading(false);
+		};
+		updatePlayers();
+	}, [isGoing]);
 
 	return (
 		<div className="flex self-center justify-center items-center w-full py-4 lg:px-16">
@@ -47,7 +49,7 @@ export default function GamePage() {
 						<div className="flex flex-col items-start lg:flex-row justify-between lg:items-center">
 							{/* Title */}
 							<h1 className="text-4xl mb-2 lg:mb-0 font-semibold text-normal-text dark:text-dark-normal-text">
-								{props.name || 'No Title'}
+								{props.title || "No Title"}
 							</h1>
 							<div className="flex flex-wrap gap-2">
 								{/* Tags */}
@@ -55,7 +57,7 @@ export default function GamePage() {
 									{tags.map((tag: TagProps, index: number) => (
 										<Tag
 											key={index}
-											title={typeof tag.title === 'number' ? players.length : tag.title}
+											title={typeof tag.title === "number" ? players.length : tag.title}
 											icon={tag.icon}
 										/>
 									))}
@@ -64,7 +66,7 @@ export default function GamePage() {
 								<button
 									onClick={() => handleMarkAsGoing()}
 									className="text-button-text h-10 dark:text-dark-button-text cursor-pointer transition-all duration-300 bg-button-background dark:bg-dark-button-background hover:bg-button-hover dark:hover:bg-dark-button-hover focus:bg-button-focus dark:focus:bg-dark-button-focus font-medium rounded-lg text-sm px-4 py-2 ">
-									{isLoading ? <LoadingSpinner /> : isGoing ? 'Going!' : 'Mark As Going'}
+									{isLoading ? <LoadingSpinner /> : isGoing ? "Going!" : "Mark As Going"}
 								</button>
 							</div>
 						</div>
@@ -77,7 +79,7 @@ export default function GamePage() {
 								</h2>
 								<hr className="w-full mt-2 border-divider dark:border-dark-divider"></hr>
 								<p className="mt-2 text-normal-text text-wrap break-words dark:text-dark-normal-text">
-									{props.description || 'No Description'}
+									{props.description || "No Description"}
 								</p>
 							</div>
 							{/* Players */}
@@ -105,5 +107,5 @@ export default function GamePage() {
 				<CommentSection />
 			</div>
 		</div>
-	)
+	);
 }

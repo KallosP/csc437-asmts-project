@@ -19,9 +19,9 @@ export class GameProvider {
 		return promise;
 	}
 
-    // Get all games tied to a user
-    async findAllGames(username: string) {
-        return gamesModel.find({"organizer.username": username}); 
+    // Get all created games
+    async findAllGames() {
+        return gamesModel.find(); 
     }
 
     // Get a game by id

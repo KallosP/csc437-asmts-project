@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, {useEffect} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars} from "@fortawesome/free-solid-svg-icons";
+import {useLocation, useNavigate} from "react-router-dom";
 
 interface TopBarProps {
-	handleMenuClick: () => void
-	darkMode: boolean
-	toggleDarkMode: () => void
+	handleMenuClick: () => void;
+	darkMode: boolean;
+	toggleDarkMode: () => void;
 }
 
-export default function TopBar({ handleMenuClick, darkMode, toggleDarkMode }: TopBarProps) {
-	const location = useLocation()
-	const navigate = useNavigate()
+export default function TopBar({handleMenuClick, darkMode, toggleDarkMode}: TopBarProps) {
+	const location = useLocation();
+	const navigate = useNavigate();
 
-	const currentPath = location.pathname
+	const currentPath = location.pathname;
 
-	const showBackButton = currentPath === '/add-game' || currentPath === '/view-game'
-	const disableHamburger = currentPath !== '/search'
+	const showBackButton = currentPath === "/add-game" || currentPath === "/view-game";
+	const disableHamburger = currentPath !== "/search";
 
 	function handleBack() {
-		navigate('/search')
+		navigate("/search");
 	}
 
 	return (
@@ -36,7 +36,7 @@ export default function TopBar({ handleMenuClick, darkMode, toggleDarkMode }: To
 					disabled={disableHamburger}
 					onClick={handleMenuClick}
 					className={`lg:opacity-0 lg:pointer-events-none ${
-						disableHamburger ? 'opacity-0 pointer-events-none' : ''
+						disableHamburger ? "opacity-0 pointer-events-none" : ""
 					} dark:focus:bg-dark-hamburger-hover focus:bg-hamburger-hover px-2 py-1 rounded-md transition-all duration-200`}>
 					<FontAwesomeIcon
 						icon={faBars}
@@ -49,8 +49,8 @@ export default function TopBar({ handleMenuClick, darkMode, toggleDarkMode }: To
 			<button
 				onClick={toggleDarkMode}
 				className="w-14 h-10 cursor-pointer dark:bg-dark-toggle-button dark:text-dark-toggle-button-text bg-toggle-button text-toggle-button-text rounded-full transition-all duration-300">
-				{localStorage.getItem('darkMode') === 'true' ? 'Light' : 'Dark'}
+				{localStorage.getItem("darkMode") === "true" ? "Light" : "Dark"}
 			</button>
 		</div>
-	)
+	);
 }

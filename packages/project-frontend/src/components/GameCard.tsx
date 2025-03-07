@@ -1,36 +1,40 @@
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom'
-import Tag from './Tag'
+import React from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faLocationDot} from "@fortawesome/free-solid-svg-icons";
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from "react-router-dom";
+import Tag from "./Tag";
 
-type GameCardProps = {
-  img: string;
-  name: string;
-  sportTag?: string;
-  skillTag?: string;
-  locationTag?: string;
-  players: string[];
-  playersTag?: number;
-  description: string;
-  sport: string;
-};
+export interface GameType {
+	_id: string;
+	img: string;
+	title: string;
+	sport: string;
+	level: string;
+	location: string;
+	players: string[];
+	description: string;
+	organizer: string;
+}
 
-export default function GameCard(props: GameCardProps) {
-	const navigate = useNavigate()
+export default function GameCard(props: GameType) {
+	const navigate = useNavigate();
+	const sportTag = props.sport;
+	const skillTag = props.level;
+	const locationTag = props.location;
+	const playersTag = props.players.length;
 
 	const handleClick = () => {
-		console.log('Game clicked')
-		navigate('/view-game', { state: {tags, ...props}  })
-	}
+		console.log("Game clicked");
+		navigate("/view-game", {state: {tags, ...props}});
+	};
 
 	const tags = [
-		{ title: props.sportTag, icon: null},
-		{ title: props.skillTag, icon: null},
-		{ title: props.locationTag, icon: faLocationDot},
-		{ title: props.playersTag, icon: faUser},
-	]
+		{title: sportTag, icon: null},
+		{title: skillTag, icon: null},
+		{title: locationTag, icon: faLocationDot},
+		{title: playersTag, icon: faUser}
+	];
 
 	return (
 		<button
@@ -46,13 +50,13 @@ export default function GameCard(props: GameCardProps) {
 				</div>
 				<div className="lg:p-0 p-8 overflow-hidden">
 					<div className="text-4xl tracking-wide text-normal-text dark:text-dark-normal-text">
-						{props.name}
+						{props.title}
 					</div>
 					{/* Tags */}
 					<div className="mt-2 overflow-hidden">
 						<ul className="flex flex-wrap gap-2 truncate">
 							{tags.map((tag, index) => (
-								<Tag key={index} title={tag.title || 'Err'} icon={tag.icon} />
+								<Tag key={index} title={tag.title || "Err"} icon={tag.icon} />
 							))}
 						</ul>
 					</div>
@@ -63,5 +67,5 @@ export default function GameCard(props: GameCardProps) {
 				</div>
 			</div>
 		</button>
-	)
+	);
 }

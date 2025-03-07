@@ -1,61 +1,35 @@
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import BACKEND_URL from "../constants";
+import {useToken} from "../TokenContext";
 
-export default function LoginPage() {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [createNewAccount, setCreateNewAccount] = useState(false);
-	const [accountCreated, setAccountCreated] = useState(false);
+interface LoginProps {
+	email: string;
+	setEmail: (email: string) => void;
+	password: string;
+	setPassword: (password: string) => void;
+	createNewAccount: boolean;
+	setAccountCreated: (accountCreated: boolean) => void;
+	setCreateNewAccount: (createNewAccount: boolean) => void;
+	loginUser: (creds: {email: string; password: string}) => Promise<any>;
+	createUser: (creds: {email: string; password: string}) => Promise<any>;
+	accountCreated: boolean;
+}
+
+export default function LoginPage({
+	email,
+	setEmail,
+	password,
+	setPassword,
+	createNewAccount,
+	setAccountCreated,
+	setCreateNewAccount,
+	loginUser,
+	createUser,
+	accountCreated
+}: LoginProps) {
 	const navigate = useNavigate();
-
-	async function createUser(creds: {email: string; password: string}) {
-		try {
-			const response = await fetch(`${BACKEND_URL}/api/user`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify(creds)
-			});
-			if (response.ok) {
-				const data = await response.json();
-				return data;
-			} else {
-				const errorData = await response.json();
-				throw new Error(errorData.message || "Account creation failed");
-			}
-		} catch (e) {
-			console.log("Error creating user:", e);
-			throw new Error("Account creation failed");
-		}
-	}
-
-	async function loginUser(creds: {email: string; password: string}) {
-		try {
-			const response = await fetch(`${BACKEND_URL}/api/user/login`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify(creds)
-			});
-			if (response.ok) {
-				const data = await response.json();
-				return data;
-			} else {
-				const errorData = await response.json();
-				throw new Error(errorData.message || "Account creation failed");
-			}
-		} catch (e) {
-			console.log("Error logging in user:", e);
-			throw new Error("Login failed");
-		}
-	}
-
+	const {setToken, setCurrUserId} = useToken();
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault();
-
 		try {
 			if (createNewAccount) {
 				console.log("Create account clicked");
@@ -63,26 +37,22 @@ export default function LoginPage() {
 				setAccountCreated(true);
 			} else {
 				const data = await loginUser({email, password});
-				console.log("TOKEN: ", data.token);
-				console.log("USER ID: ", data.userId);
-				// README: 
+				// Set token and currUserId for this session
+				setToken(data.token);
+				setCurrUserId(data.userId);
+				// README:
 				//		if site becomes unresponsive for some users after navigating to search,
 				//		it's because of chrome's unsafe password alert getting bugged. Clear
 				//		cache/cookies and exit out of chrome completely and retry. Try on other
 				//		browsers if issue continues.
-				navigate("/search", {
-					state: {
-						token: data.token,
-						currUserId: data.userId
-					}
-				})
+				navigate("/search");
 			}
 		} catch (e) {
 			console.error(e);
 			if (e instanceof Error) {
 				alert(e.message);
 			}
-		} 
+		}
 	};
 
 	return (

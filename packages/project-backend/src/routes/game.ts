@@ -48,7 +48,7 @@ export function registerGameRoutes(app: express.Application) {
 		}
 	});
 
-	// Get Game
+	// Get Game by Id
 	app.get("/api/game/:id", (req: Request, res: Response) => {
 		const gameId = req.params.id;
 		gameProvider
@@ -60,4 +60,16 @@ export function registerGameRoutes(app: express.Application) {
 				res.status(500).send(err);
 			});
 	});
+	
+	// Get all created games
+	app.get("/api/games", (req: Request, res: Response) => {
+		gameProvider
+			.findAllGames()
+			.then((games) => {
+				res.send(games);
+			})
+			.catch((err) => {
+				res.status(500).send(err);
+			});
+	})
 }
