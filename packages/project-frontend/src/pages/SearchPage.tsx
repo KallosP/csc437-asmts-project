@@ -23,8 +23,6 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 	const location = useLocation();
 	const {token, currUserId} = useToken();
 
-	const gameData = location.state?.gameData;
-
 	console.log("Location:", location.state);
 	console.log("Token:", token);
 	console.log("User:", currUserId);
@@ -97,7 +95,9 @@ export default function SearchPage({openLeftSidebar, addAuthHeader}: SearchPageP
 							)}
 						</ul>
 					) : (
-						<p>No games found</p>
+						<p className="text-normal-text dark:text-dark-normal-text text-center mt-5">
+							No games found
+						</p>
 					)}
 				</div>
 				{/* Add Game */}

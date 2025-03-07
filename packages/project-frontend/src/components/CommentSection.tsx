@@ -75,7 +75,9 @@ export default function CommentSection({comments, setComments, addAuthHeader, cu
 				<LoadingSpinner />
 			) : (
 				<ul className="mt-2 space-y-2">
-					{comments.map((c, index) => (
+					
+					{// .slice.reverse is used to reverse the order of comments (most recent first)
+					comments.slice().reverse().map((c, index) => (
 						<li
 							key={index}
 							className="p-4 rounded-lg h-auto text-wrap break-words bg-elevated-background dark:bg-dark-elevated-background">
