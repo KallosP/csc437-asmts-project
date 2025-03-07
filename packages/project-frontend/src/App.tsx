@@ -119,7 +119,7 @@ function App() {
 								<SearchPage openLeftSidebar={openLeftSidebar} addAuthHeader={addAuthHeader} />
 							}
 						/>
-						<Route path="/view-game" element={<GamePage />} />
+						<Route path="/view-game" element={<GamePage addAuthHeader={addAuthHeader} />} />
 						<Route path="/add-game" element={<AddGamePage addAuthHeader={addAuthHeader} />} />
 					</Routes>
 				</div>

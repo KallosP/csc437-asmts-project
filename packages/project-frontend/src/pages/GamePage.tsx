@@ -5,8 +5,13 @@ import CommentSection from "../components/CommentSection";
 import {useState, useEffect} from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import {useToken} from "../TokenContext";
+import BACKEND_URL from "../constants";
 
-export default function GamePage() {
+interface GamePageProps {
+	addAuthHeader: (token: string) => Record<string, string>;
+}
+
+export default function GamePage({addAuthHeader}: GamePageProps) {
 	const location = useLocation();
 	const [isGoing, setIsGoing] = useState(false);
 	const {tags, ...props} = location.state || [];
@@ -14,28 +19,65 @@ export default function GamePage() {
 	const [players, setPlayers] = useState<string[]>(props.players);
 	const {token, currUserId} = useToken();
 
-	function handleMarkAsGoing() {
-		setIsGoing((prevState) => !prevState);
+	async function handleMarkAsGoing() {
+		try {
+			setIsLoading(true);
+			if (isGoing) {
+				// Remove player from game
+				const response = await fetch(`${BACKEND_URL}/api/games/${props._id}`, {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+						...addAuthHeader(token)
+					},
+					body: JSON.stringify({playerId: currUserId})
+				})
+				if (response.ok) {
+					console.log("Player removed from game");
+					setIsGoing(false)
+					const data = await response.json();
+					setPlayers(players.filter((player) => player !== data.username));
+					return data
+				} else {
+					console.log("Failed to remove player to game");
+					throw new Error("Failed to remove player to game");
+				}
+			} else {
+				// Add player to game
+				const response = await fetch(`${BACKEND_URL}/api/games/${props._id}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						...addAuthHeader(token)
+					},
+					body: JSON.stringify({playerId: currUserId})
+				})
+				if (response.ok) {
+					console.log("Player added to game");
+					setIsGoing(true);
+					const data = await response.json();
+					setPlayers([...players, data.players.find((player: any) => player._id === currUserId).username]);
+				} else {
+					console.log("Failed to add player to game");
+					throw new Error("Failed to add player to game");
+				}
+			}
+		} catch (e) {
+			console.log("Error modifying player in game", e);
+			alert("Something went wrong...");
+		} finally {
+			setIsLoading(false);
+		}
 	}
 
 	// FIXME: the use of the players state variable in rendering
 	//		  was for frontend testing purposes. prob have to change
 	//		  logic for backend
 	useEffect(() => {
-		const updatePlayers = async () => {
-			if (isLoading) return;
-			setIsLoading(true);
-			await new Promise((resolve) => setTimeout(resolve, 1000));
-			// TODO: add backend operations here (fetch, update, etc.)
-			if (isGoing) {
-				setPlayers([...players, "Foo bar"]);
+		/*if (isGoing) {
 			} else {
-				setPlayers(players.filter((player) => player !== "Foo bar"));
-			}
-			setIsLoading(false);
-		};
-		updatePlayers();
-	}, [isGoing]);
+			}*/
+	}, []);
 
 	return (
 		<div className="flex self-center justify-center items-center w-full py-4 lg:px-16">

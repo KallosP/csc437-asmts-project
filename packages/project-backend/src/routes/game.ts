@@ -72,4 +72,49 @@ export function registerGameRoutes(app: express.Application) {
 				res.status(500).send(err);
 			});
 	})
+
+	// Add a player to a game
+	app.post("/api/games/:id", async (req: Request, res: Response) => {
+		const gameId = req.params.id;
+		const playerId = req.body.playerId;
+
+		// Get the player document
+		const player = await User.findById(playerId);
+		if (!player) {
+			throw new Error("Player not found");
+		}
+
+		gameProvider
+			.addPlayerToGame(gameId, player)
+			.then(() => {
+				res.send(player);
+			})
+			.catch((err) => {
+				console.log(err)
+				res.status(500).send(err);
+			});
+	})
+
+	// Delete player from game
+	app.delete("/api/games/:id", async (req: Request, res: Response) => {
+		const gameId = req.params.id;
+		const playerId = req.body.playerId;
+
+		// Get the player document
+		const player = await User.findById(playerId);
+		if (!player) {
+			throw new Error("Player not found");
+		}
+
+		gameProvider
+			.deletePlayerFromGame(gameId, player)
+			.then(() => {
+				// Send player removed from game
+				res.send(player);
+			})
+			.catch((err) => {
+				console.log(err)
+				res.status(500).send(err);
+			});
+	})
 }

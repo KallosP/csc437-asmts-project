@@ -1,7 +1,7 @@
 import gamesModel from "./models/games";
-import { UsersType } from "./models/users";
+import usersModel, { UsersType } from "./models/users";
 import { /*GamesType*/ } from "./models/games";
-import { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 
 export class GameProvider {
 	async addGame(
@@ -32,5 +32,30 @@ export class GameProvider {
     // Update a game
 	async updateGame(gameId: string, updatedGame: any/*GamesType*/) {
 		return gamesModel.findOneAndUpdate({_id: gameId}, updatedGame, {new: true});
+	}
+
+	// Add Player to game
+	async addPlayerToGame(gameId: string, player: UsersType) {
+		// Check if player is already in game
+		const game = await gamesModel.findOne({_id: gameId, players: player});
+		if (game) {
+			throw new Error("Player already in game");
+		}
+
+		return gamesModel.findOneAndUpdate(
+			{_id: gameId},
+			// Add the player (document)
+			{$push: {players: player}},
+			{new: true}
+		);
+	}
+
+	async deletePlayerFromGame(gameId: string, player: UsersType) {
+		return gamesModel.findOneAndUpdate(
+			{_id: gameId},
+			// Remove the player (document)
+			{$pull: {players: player}},
+			{new: true}
+		);
 	}
 }
