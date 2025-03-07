@@ -37,7 +37,7 @@ export default function CommentSection({comments, setComments, addAuthHeader, cu
 			if (response.ok) {
 				const data = await response.json()
 				// Add new comment at the top
-				setComments([data.content, ...comments])
+				setComments([ ...comments, data.content])
 			}
 		}
 		catch (e){
