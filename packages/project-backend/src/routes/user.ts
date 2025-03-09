@@ -107,8 +107,4 @@ export function registerUserRoutes(app: express.Application) {
 				res.status(400).send("Something went wrong with finding user...");
 			});
 	});
-
-	app.get("/api/user", (req: Request, res: Response) => {
-
-	});
 }
