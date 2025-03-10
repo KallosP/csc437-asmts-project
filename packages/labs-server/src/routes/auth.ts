@@ -73,7 +73,19 @@ export function registerAuthRoutes(app: express.Application, mongoClient: MongoC
                 });
             }
             else{
-                res.status(201).send() 
+                credentialsProvider.verifyPassword(username, password).then((result) => {
+                    if (result) {
+                        generateAuthToken(username).then((token) => {
+                            res.status(201).send({token: token})        
+                        })
+                    }
+                    else {
+                        res.status(401).send({
+                            error: "Bad request",
+                            message: "Incorrect username or password"
+                        });
+                    }
+                })
             }
         })
         .catch((error) => {
