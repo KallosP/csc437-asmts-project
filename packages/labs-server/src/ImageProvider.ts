@@ -28,54 +28,33 @@ export class ImageProvider {
     async getAllImages(author?: string): Promise<Image[]> {
         const db = this.mongoClient.db();
         const imagesCollectionName = process.env.IMAGES_COLLECTION_NAME;
-        const usersCollectionName = process.env.USERS_COLLECTION_NAME;
+    
+        if (!imagesCollectionName) {
+            throw new Error("Missing collection name from environment variables");
+        }
+    
+        const imagesCollection = db.collection(imagesCollectionName);
+    
+        const query = author ? { author } : {};
+        const images = await imagesCollection.find<Image>(query).toArray();
+    
+        return images;
+    }
 
-        if (!imagesCollectionName || !usersCollectionName) {
-            throw new Error("Missing collection names from environment variables");
+
+    async createImage(image: {src: string; name: string; author: string; likes: number }): Promise<void> {
+        if(image === undefined) {
+            throw new Error("Image is undefined");
+        }
+        const db = this.mongoClient.db();
+        const imagesCollectionName = process.env.IMAGES_COLLECTION_NAME;
+
+        if (!imagesCollectionName) {
+            throw new Error("Missing collection name from environment variables");
         }
 
         const imagesCollection = db.collection(imagesCollectionName);
 
-        // Build the aggregation pipeline
-        const pipeline: any[] = [];
-
-        // Conditionally add the $match stage if author is provided
-        if (author) {
-            pipeline.push({
-                $match: { author }
-            });
-        }
-
-        // Add the $lookup stage
-        pipeline.push(
-            {
-                $lookup: {
-                    from: usersCollectionName,
-                    localField: "author",
-                    foreignField: "_id",
-                    as: "authorInfo",
-                },
-            },
-            {
-                $unwind: "$authorInfo",
-            },
-            {
-                $project: {
-                    _id: 1,
-                    src: 1,
-                    name: 1,
-                    author: {
-                        _id: "$authorInfo._id",
-                        username: "$authorInfo.username",
-                        email: "$authorInfo.email",
-                    },
-                    likes: 1,
-                },
-            }
-        );
-    
-        const images = await imagesCollection.aggregate<Image>(pipeline).toArray();
-
-        return images;
+        await imagesCollection.insertOne(image);
     }
 }

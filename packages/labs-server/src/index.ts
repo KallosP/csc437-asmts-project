@@ -28,6 +28,9 @@ async function setUpServer() {
 
 	app.use(express.static(staticDir));
 
+	app.use("/uploads", express.static(process.env.IMAGE_UPLOAD_DIR || "uploads"))
+
+
 	app.get("/hello", (req: Request, res: Response) => {
 		res.send("Hello, World");
 	});
